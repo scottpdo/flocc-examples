@@ -1,6 +1,8 @@
 export const meta = {
   title: 'Flocking',
   description: 'The classic boids algorithm, demonstrating emergent flocking behavior from three simple rules: alignment, cohesion, and separation.',
+  topics: ['Ecology', 'Physics'],
+  tags: ['CanvasRenderer', 'KDTree'],
 };
 
 export const content = `
