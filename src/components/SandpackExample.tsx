@@ -13,17 +13,12 @@ interface Props {
 export default function SandpackExample({ code, title }: Props) {
   const files = {
     '/index.js': code,
+    '/index.css': `html, body { margin: 0; padding: 0; }`,
     '/index.html': `<!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { background: #141414; overflow: hidden; }
-      canvas { display: block; }
-    </style>
-  </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <style>html, body { margin: 0; padding: 0; }</style>
+    <div id="container"></div>
     <script type="module" src="/index.js"></script>
   </body>
 </html>`,
@@ -80,12 +75,12 @@ export default function SandpackExample({ code, title }: Props) {
           <SandpackCodeEditor
             showLineNumbers
             showTabs={false}
-            style={{ height: '500px' }}
+            style={{ height: 500 }}
           />
           <SandpackPreview
             showOpenInCodeSandbox={false}
             showRefreshButton
-            style={{ height: '500px' }}
+            style={{ height: 500 }}
           />
         </SandpackLayout>
       </SandpackProvider>

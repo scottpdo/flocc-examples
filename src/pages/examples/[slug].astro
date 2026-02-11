@@ -75,8 +75,14 @@ const parsedContent = parseMarkdown(content);
 
 <style>
   .example-page {
-    max-width: 1000px;
+    max-width: 1600px;
     margin: 0 auto;
+  }
+
+  .header,
+  .content {
+    margin: 0 auto;
+    max-width: 1000px;
   }
 
   .back {
@@ -140,9 +146,11 @@ const parsedContent = parseMarkdown(content);
   }
 
   .sandbox {
+    max-width: 1600px;
     border: 1px solid var(--color-border);
     border-radius: 12px;
     overflow: hidden;
+    margin: 0 auto;
   }
 
   .sandbox :global(.sp-wrapper) {
