@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Example data - add more as needed
+const examples = [
+  {
+    slug: 'flocking',
+    title: 'Flocking',
+    description: 'Classic boids algorithm with alignment, cohesion, and separation.',
+    image: '/examples/flocking.png',
+  },
+  {
+    slug: 'game-of-life',
+    title: "Conway's Game of Life",
+    description: 'Cellular automaton with simple rules creating complex patterns.',
+    image: '/examples/game-of-life.png',
+  },
+  {
+    slug: 'predator-prey',
+    title: 'Predator-Prey',
+    description: 'Lotka-Volterra dynamics with foxes and rabbits.',
+    image: '/examples/predator-prey.png',
+  },
+  {
+    slug: 'diffusion',
+    title: 'Diffusion',
+    description: 'Particles spreading through random motion.',
+    image: '/examples/diffusion.png',
+  },
+  {
+    slug: 'ant-colony',
+    title: 'Ant Colony',
+    description: 'Emergent pathfinding through pheromone trails.',
+    image: '/examples/ant-colony.png',
+  },
+  {
+    slug: 'network',
+    title: 'Network Simulation',
+    description: 'Agents connected in a network topology.',
+    image: '/examples/network.png',
+  },
+];
+---
+
+<Layout title="Examples">
+  <div class="header">
+    <h1>Examples</h1>
+    <p>Interactive simulations demonstrating Flocc's capabilities. Click any example to see the code and run it live.</p>
+  </div>
+
+  <div class="grid">
+    {examples.map((example) => (
+      <a href={`/examples/${example.slug}`} class="card">
+        <div class="card-image">
+          <img src={example.image} alt={example.title} />
+        </div>
+        <div class="card-content">
+          <h2>{example.title}</h2>
+          <p>{example.description}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .header p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+    color: var(--color-text);
+  }
+
+  .card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .card-image {
+    aspect-ratio: 16 / 10;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 1.25rem;
+  }
+
+  .card-content h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-content p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+</style>

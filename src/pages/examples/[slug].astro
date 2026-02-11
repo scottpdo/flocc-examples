@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SandpackExample from '../../components/SandpackExample';
+
+// Get all example modules
+const exampleModules = import.meta.glob('../../content/examples/*.ts', { eager: true });
+
+// Build examples map
+const examples: Record<string, { meta: any; content: string; code: string }> = {};
+for (const [path, module] of Object.entries(exampleModules)) {
+  const slug = path.split('/').pop()?.replace('.ts', '') || '';
+  examples[slug] = module as any;
+}
+
+export function getStaticPaths() {
+  const modules = import.meta.glob('../../content/examples/*.ts', { eager: true });
+  return Object.keys(modules).map((path) => {
+    const slug = path.split('/').pop()?.replace('.ts', '') || '';
+    return { params: { slug } };
+  });
+}
+
+// Simple markdown parsing
+function parseMarkdown(text: string): string {
+  let html = text
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>');
+  
+  // Wrap consecutive <li> in <ul> or <ol>
+  html = html.replace(/(<li>[\s\S]*?<\/li>)+/g, '<ul>$&</ul>');
+  
+  // Wrap paragraphs
+  const lines = html.split('\n\n');
+  html = lines.map(line => {
+    line = line.trim();
+    if (!line) return '';
+    if (line.startsWith('<h') || line.startsWith('<ul') || line.startsWith('<ol')) {
+      return line;
+    }
+    return `<p>${line}</p>`;
+  }).join('\n');
+  
+  return html;
+}
+
+const { slug } = Astro.params;
+const example = examples[slug as string];
+
+if (!example) {
+  return Astro.redirect('/examples');
+}
+
+const { meta, content, code } = example;
+const parsedContent = parseMarkdown(content);
+---
+
+<Layout title={meta.title} description={meta.description}>
+  <div class="example-page">
+    <div class="header">
+      <a href="/examples" class="back">&larr; Back to Examples</a>
+      <h1>{meta.title}</h1>
+    </div>
+
+    <div class="content" set:html={parsedContent} />
+
+    <div class="sandbox">
+      <SandpackExample code={code} client:load />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .example-page {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .back {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .back:hover {
+    color: var(--color-text);
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .content :global(h2) {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: var(--color-text);
+  }
+
+  .content :global(h3) {
+    font-size: 1.2rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .content :global(p) {
+    margin-bottom: 1rem;
+    color: var(--color-text-muted);
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .content :global(li) {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+  }
+
+  .content :global(code) {
+    font-family: var(--font-mono);
+    background: var(--color-surface);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  .content :global(strong) {
+    color: var(--color-text);
+  }
+
+  .sandbox {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .sandbox :global(.sp-wrapper) {
+    background: var(--color-surface) !important;
+  }
+</style>

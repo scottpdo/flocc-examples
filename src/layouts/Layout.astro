@@ -1,0 +1,104 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Interactive examples for Flocc, an agent-based modeling library" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Flocc Examples</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="logo">Flocc</a>
+      <div class="nav-links">
+        <a href="/examples">Examples</a>
+        <a href="https://flocc.network/docs" target="_blank">Docs</a>
+        <a href="https://github.com/scottpdo/flocc" target="_blank">GitHub</a>
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-bg: #0a0a0a;
+    --color-surface: #141414;
+    --color-border: #2a2a2a;
+    --color-text: #e5e5e5;
+    --color-text-muted: #888;
+    --color-accent: #3b82f6;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  nav .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .nav-links a {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  nav .nav-links a:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+</style>
