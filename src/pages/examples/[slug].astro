@@ -56,6 +56,7 @@ if (!example) {
 
 const { meta, content, code } = example;
 const parsedContent = parseMarkdown(content);
+const dependencies = meta.dependencies || {};
 ---
 
 <Layout title={meta.title} description={meta.description}>
@@ -68,7 +69,7 @@ const parsedContent = parseMarkdown(content);
     <div class="content" set:html={parsedContent} />
 
     <div class="sandbox">
-      <SandpackExample code={code} client:load />
+      <SandpackExample code={code} dependencies={dependencies} client:load />
     </div>
   </div>
 </Layout>

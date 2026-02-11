@@ -8,9 +8,10 @@ import {
 interface Props {
   code: string;
   title?: string;
+  dependencies?: Record<string, string>;
 }
 
-export default function SandpackExample({ code, title }: Props) {
+export default function SandpackExample({ code, title, dependencies = {} }: Props) {
   const files = {
     '/index.js': code,
     '/index.css': `html, body { margin: 0; padding: 0; }`,
@@ -24,16 +25,20 @@ export default function SandpackExample({ code, title }: Props) {
 </html>`,
   };
 
+  // Merge default dependencies with example-specific ones
+  const allDependencies = {
+    flocc: 'latest',
+    'flocc-ui': 'latest',
+    ...dependencies,
+  };
+
   return (
     <div className="sandpack-wrapper">
       <SandpackProvider
         template="vanilla"
         files={files}
         customSetup={{
-          dependencies: {
-            flocc: 'latest',
-            'flocc-ui': 'latest',
-          },
+          dependencies: allDependencies,
         }}
         options={{
           externalResources: [],

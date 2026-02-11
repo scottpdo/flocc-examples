@@ -3,6 +3,9 @@ export const meta = {
   description: 'Lorem ipsum',
   topics: ["Physics"],
   tags: [],
+  dependencies: {
+    'three': 'latest',
+  },
 };
 
 export const content = `

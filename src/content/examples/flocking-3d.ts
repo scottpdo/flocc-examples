@@ -3,6 +3,9 @@ export const meta = {
   description: 'Lorem ipsum',
   topics: ["Ecology","Physics"],
   tags: ["KDTree"],
+  dependencies: {
+    'three': 'latest',
+  },
 };
 
 export const content = `
