@@ -7,19 +7,21 @@ import {
 
 interface Props {
   code: string;
+  markup?: string;
   title?: string;
+  style?: string;
   dependencies?: Record<string, string>;
 }
 
-export default function SandpackExample({ code, title, dependencies = {} }: Props) {
+export default function SandpackExample({ code, markup, style, dependencies = {} }: Props) {
   const files = {
     '/index.js': code,
-    '/index.css': `html, body { margin: 0; padding: 0; }`,
     '/index.html': `<!DOCTYPE html>
 <html>
   <body>
     <style>html, body { margin: 0; padding: 0; } #container { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; }</style>
-    <div id="container"></div>
+    ${style && `<style>${style}</style>`}
+    ${markup ?? `<div id="container"></div>`}
     <script type="module" src="/index.js"></script>
   </body>
 </html>`,

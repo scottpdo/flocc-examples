@@ -54,7 +54,7 @@ if (!example) {
   return Astro.redirect('/examples');
 }
 
-const { meta, content, code } = example;
+const { meta, content, code, markup, style } = example;
 const parsedContent = parseMarkdown(content);
 const dependencies = meta.dependencies || {};
 ---
@@ -69,7 +69,7 @@ const dependencies = meta.dependencies || {};
     <div class="content" set:html={parsedContent} />
 
     <div class="sandbox">
-      <SandpackExample code={code} dependencies={dependencies} client:load />
+      <SandpackExample code={code} dependencies={dependencies} markup={markup} style={style} client:load />
     </div>
   </div>
 </Layout>
