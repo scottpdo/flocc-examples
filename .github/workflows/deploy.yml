@@ -24,3 +24,4 @@ jobs:
           aws-region: us-east-1
       
       - run: aws s3 sync dist/ s3://flocc-examples --delete
+      - run: aws cloudfront create-invalidation --distribution-id E21Z5G1O1BGVB0 --paths "/*"
