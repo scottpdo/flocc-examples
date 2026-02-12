@@ -1,153 +1,102 @@
----
-// Flocking demo - runs entirely client-side
----
-
 <div class="flocking-container">
-  <canvas id="flocking-canvas"></canvas>
+  <div id="flocking-canvas"></div>
 </div>
 
 <script>
-  import { Agent, Environment, CanvasRenderer, Vector, utils } from 'flocc';
+  import { Agent, Environment, CanvasRenderer, Vector, KDTree, utils } from 'flocc';
 
-  const canvas = document.getElementById('flocking-canvas') as HTMLCanvasElement;
-  const container = canvas.parentElement!;
+  const canvas = document.getElementById("flocking-canvas");
+  const { width, height } = canvas.parentElement.getBoundingClientRect();
+  const environment = new Environment({ width, height });
+  let kdtree = null;
+  let animationID = -1;
   
-  // Set canvas size
-  const resize = () => {
-    canvas.width = container.clientWidth;
-    canvas.height = 400;
+  const tick = (agent) => {
+    const dir = new Vector(agent.get("vx"), agent.get("vy"));
+    agent.set("x", (agent.get("x") + dir.x) % width);
+    agent.set("y", (agent.get("y") + dir.y) % height);
+
+    const { x, y } = agent.getData();
+    const step = new Vector();
+    const threshold = 40;
+    /*
+    const neighbors = kdtree.agentsWithinDistance(agent, threshold);
+    if (neighbors.length === 0) return;
+
+    const v = n => Math.min(1, threshold / n);
+    neighbors.forEach(neighbor => {
+      const away = new Vector(
+        v(x - neighbor.get("x")),
+        v(y - neighbor.get("y"))
+      );
+      away.normalize().multiplyScalar(0.03);
+      step.add(away);
+    });
+    */
+
+    dir.add(step);
+    dir.multiplyScalar(dir.length() > 1 ? 0.97 : 1.03);
+    agent.set("vx", dir.x);
+    agent.set("vy", dir.y);
   };
-  resize();
-  window.addEventListener('resize', resize);
 
-  const width = () => canvas.width;
-  const height = () => canvas.height;
-
-  // Create environment
-  const environment = new Environment();
-
-  // Flocking parameters
-  const SPEED = 2;
-  const PERCEPTION = 50;
-  const SEPARATION = 25;
-
-  // Helper to create a boid
-  function createBoid() {
-    const agent = new Agent();
-    agent.set({
-      x: utils.random(0, width()),
-      y: utils.random(0, height()),
-      vx: utils.random(-SPEED, SPEED),
-      vy: utils.random(-SPEED, SPEED),
-    });
-
-    agent.set('tick', (a: Agent) => {
-      const neighbors = environment.getAgents().filter((other: Agent) => {
-        if (other === a) return false;
-        const dx = other.get('x') - a.get('x');
-        const dy = other.get('y') - a.get('y');
-        return Math.sqrt(dx * dx + dy * dy) < PERCEPTION;
-      });
-
-      let vx = a.get('vx');
-      let vy = a.get('vy');
-
-      if (neighbors.length > 0) {
-        // Alignment - steer towards average heading
-        let avgVx = 0, avgVy = 0;
-        // Cohesion - steer towards center of mass
-        let avgX = 0, avgY = 0;
-        // Separation - avoid crowding
-        let sepX = 0, sepY = 0;
-
-        neighbors.forEach((n: Agent) => {
-          avgVx += n.get('vx');
-          avgVy += n.get('vy');
-          avgX += n.get('x');
-          avgY += n.get('y');
-
-          const dx = a.get('x') - n.get('x');
-          const dy = a.get('y') - n.get('y');
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < SEPARATION && dist > 0) {
-            sepX += dx / dist;
-            sepY += dy / dist;
-          }
-        });
-
-        // Apply forces
-        vx += (avgVx / neighbors.length - vx) * 0.05;
-        vy += (avgVy / neighbors.length - vy) * 0.05;
-        vx += (avgX / neighbors.length - a.get('x')) * 0.005;
-        vy += (avgY / neighbors.length - a.get('y')) * 0.005;
-        vx += sepX * 0.1;
-        vy += sepY * 0.1;
-      }
-
-      // Normalize and apply speed
-      const mag = Math.sqrt(vx * vx + vy * vy);
-      if (mag > 0) {
-        vx = (vx / mag) * SPEED;
-        vy = (vy / mag) * SPEED;
-      }
-
-      // Update position with wrapping
-      let x = a.get('x') + vx;
-      let y = a.get('y') + vy;
-      if (x < 0) x += width();
-      if (x > width()) x -= width();
-      if (y < 0) y += height();
-      if (y > height()) y -= height();
-
-      a.set({ x, y, vx, vy });
-    });
-
-    return agent;
-  }
-
-  // Create boids
-  for (let i = 0; i < 100; i++) {
-    environment.addAgent(createBoid());
-  }
-
-  // Create renderer with retro colors
   const renderer = new CanvasRenderer(environment, {
-    canvas,
-    background: '#000080',  // Navy blue - classic Windows
+    width,
+    height
   });
+  renderer.mount("#flocking-canvas");
 
-  renderer.render = (a: Agent, ctx: CanvasRenderingContext2D) => {
-    const x = a.get('x');
-    const y = a.get('y');
-    const vx = a.get('vx');
-    const vy = a.get('vy');
-    const angle = Math.atan2(vy, vx);
+  for (let i = 0; i < width / 8; i++) {
+    const agent = new Agent();
+    const angle = 2 * Math.PI * Math.random();
+    const dir = new Vector(Math.cos(angle), Math.sin(angle));
+    dir.normalize();
+    agent.set("vx", dir.x);
+    agent.set("vy", dir.y);
+    agent.set("x", Math.random() * width);
+    agent.set("y", Math.random() * height);
+    agent.set("color", `rgb(0, ${utils.random(0, 255)}, ${utils.random(127, 255)})`);
+    agent.set("shape", "arrow");
+    agent.set("size", Math.random() * 3 + 2);
+    agent.set("tick", tick);
+    environment.addAgent(agent);
+  }
+  kdtree = new KDTree(environment.getAgents(), 2);
+  environment.use(kdtree);
 
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.beginPath();
-    ctx.moveTo(8, 0);
-    ctx.lineTo(-4, 4);
-    ctx.lineTo(-4, -4);
-    ctx.closePath();
-    ctx.fillStyle = '#00ff00';  // Classic green
-    ctx.fill();
-    ctx.restore();
+  const update = () => {
+    environment.tick();
+    animationID = window.requestAnimationFrame(update);
   };
 
-  // Animation loop
-  function loop() {
-    environment.tick({ randomizeOrder: true });
-    requestAnimationFrame(loop);
-  }
-  loop();
+  update();
+
+  const onMouseMove = (e) => {
+    const { clientX, clientY, movementX, movementY } = e;
+
+    const mouse = {
+      x: clientX - e.currentTarget.getBoundingClientRect().left,
+      y: clientY - e.currentTarget.getBoundingClientRect().top
+    };
+
+    const nearby = kdtree.agentsWithinDistance(mouse, 100);
+    nearby.forEach(agent => {
+      const d = utils.distance(mouse, agent);
+      const inverseDistance = Math.min(0.1, 1 / d);
+      agent.increment("vx", movementX * inverseDistance);
+      agent.increment("vy", movementY * inverseDistance);
+      agent.set("x", (agent.get("x") + 20 * inverseDistance * movementX) % width);
+      agent.set("y", (agent.get("y") + 20 * inverseDistance * movementY) % height);
+    });
+  };
+
+  canvas.addEventListener("mousemove", onMouseMove);
 </script>
 
 <style>
   .flocking-container {
     width: 100%;
-    height: 400px;
+    height: 500px;
   }
 
   #flocking-canvas {

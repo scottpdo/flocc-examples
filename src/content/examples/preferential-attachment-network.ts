@@ -5,7 +5,7 @@ export const meta = {
   tags: ["Network"],
 };
 
-export const content = `In network science, a preferential attachment network is a type of network structure where just a few nodes have a large number of connections to others, while most nodes have a small number of connections. This results in highly unbalanced networks with large disparities of degree, although degree is predictable based on the size of the network and the number of connections used in generating it. An example of a preferential attachment network is Twitter, where a few accounts have huge number of followers, where most accounts have relatively few.
+export const content = `In network science, a preferential attachment network is a type of network structure where just a few nodes have a large number of connections to others, while most nodes have a small number of connections. This results in highly unbalanced networks with large disparities of degree, although degree is predictable based on the size of the network and the number of connections used in generating it. An example of a preferential attachment network is X (formerly Twitter), where a few accounts have huge number of followers and most accounts have relatively few.
 
 This model shows how to generate a preferential attachment network from a target size and degree for new nodes. When agents are added to the network, they connect to a certain number of other agents based on how many connections existing agents in the network have. This results in those that were added earliest having the highest number of connections, on average.
 `;
