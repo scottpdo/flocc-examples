@@ -5,8 +5,94 @@ export const meta = {
   tags: ["Network"],
 };
 
-export const content = `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-`;
+export const content = `This intentionally abstract simulation depicts the dynamics of a network tending toward the mean.
+Each agent is connected to its closest geographic neighbors, and possibly a few other random agents in the network, depending on the value of <code>REWIRING_PROBABILITY</code>. With each tick of the simulation, an agent that is larger than its neighbor will transfer some of its size to the neighbor, shrinking the agent and growing the neighbor. With enough time, the network reaches stasis.
 
-export const code = '';
+Try adjusting the parameters to see how it affects the network dynamics.`;
+
+export const code = `import { Agent, Environment, CanvasRenderer, utils, Network, LineChartRenderer } from "flocc";
+
+/* ----- PARAMETERS ----- */
+const POPULATION = 60;
+const REWIRING_PROBABILITY = 0.2;
+const TRANSFER = 0.02;
+
+/* ----- SETUP ----- */
+const environment = new Environment();
+const network = new Network();
+environment.use(network);
+
+const renderer = new CanvasRenderer(environment, {
+  autoPosition: true,
+  width: 400,
+  height: 400
+});
+renderer.mount("#container");
+const chart = new LineChartRenderer(environment, {
+  autoScale: true,
+  background: "#eee",
+  width: 300,
+  height: 300,
+  range: { min: -0.25, max: 1 }
+});
+chart.mount("#chart");
+
+function tick(agent) {
+  const neighbors = network.neighbors(agent);
+  neighbors.forEach(neighbor => {
+    if (neighbor.get("size") + TRANSFER < agent.get("size")) {
+      agent.decrement("size", TRANSFER);
+      neighbor.increment("size", TRANSFER);
+    }
+  });
+}
+
+function setup() {
+  for (let i = 0; i < POPULATION; i++) {
+    const agent = new Agent();
+    agent.set("size", Math.max(utils.gaussian(7, 6), 1));
+    agent.addRule(tick);
+    environment.addAgent(agent);
+    network.addAgent(agent);
+  }
+
+  for (let i = 0; i < POPULATION; i++) {
+    for (let j = i - 2; j < i + 2; j++) {
+      network.connect(network.get(i), network.get(j));
+    }
+  }
+
+  network.agents.forEach((agent, i) => {
+    network.neighbors(agent).forEach(neighbor => {
+      if (Math.random() < REWIRING_PROBABILITY) {
+        network.disconnect(agent, neighbor);
+
+        const j = Math.floor(Math.random() * POPULATION);
+        network.connect(agent, network.get(j));
+      }
+    });
+  });
+
+  chart.metric("size", {
+    fn: utils.stdDev
+  });
+
+  chart.metric("size", {
+    color: "blue",
+    fn: utils.max
+  });
+
+  chart.metric("size", {
+    color: "red",
+    fn: utils.min
+  });
+}
+
+function draw() {
+  environment.tick();
+  requestAnimationFrame(draw);
+}
+
+setup();
+draw();
+`;

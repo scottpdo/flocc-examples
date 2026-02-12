@@ -19,8 +19,7 @@ export default function SandpackExample({ code, markup, style, dependencies = {}
     '/index.html': `<!DOCTYPE html>
 <html>
   <body>
-    <style>html, body { margin: 0; padding: 0; } #container { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; }</style>
-    ${style && `<style>${style}</style>`}
+    <style>html, body { margin: 0; padding: 0; } #container { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; } ${style ?? ''}</style>
     ${markup ?? `<div id="container"></div>`}
     <script type="module" src="/index.js"></script>
   </body>
