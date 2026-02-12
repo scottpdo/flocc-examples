@@ -16,33 +16,63 @@ const { title, description = "Interactive examples for Flocc, an agent-based mod
     <title>{title} | Flocc Examples</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <nav>
-      <a href="/" class="logo">Flocc</a>
-      <div class="nav-links">
-        <a href="/examples">Examples</a>
-        <a href="https://flocc.network/docs" target="_blank">Docs</a>
-        <a href="https://github.com/scottpdo/flocc" target="_blank">GitHub</a>
-      </div>
-    </nav>
-    <main>
-      <slot />
-    </main>
+    <div class="desktop">
+      <nav class="taskbar">
+        <a href="/" class="start-button">
+          <span class="start-icon">◈</span>
+          <span>Flocc</span>
+        </a>
+        <div class="taskbar-links">
+          <a href="/examples" class="taskbar-btn">Examples</a>
+          <a href="https://flocc.network/docs" target="_blank" class="taskbar-btn">Docs</a>
+          <a href="https://github.com/scottpdo/flocc" target="_blank" class="taskbar-btn">GitHub</a>
+        </div>
+        <div class="clock" id="clock">12:00 PM</div>
+      </nav>
+      <main class="workspace">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>
 
+<script>
+  function updateClock() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const displayHours = hours % 12 || 12;
+    const clock = document.getElementById('clock');
+    if (clock) clock.textContent = `${displayHours}:${minutes} ${ampm}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+
 <style is:global>
   :root {
-    --color-bg: #0a0a0a;
-    --color-surface: #141414;
-    --color-border: #2a2a2a;
-    --color-text: #e5e5e5;
-    --color-text-muted: #888;
-    --color-accent: #3b82f6;
-    --font-sans: 'Inter', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    /* Classic Windows 95 palette */
+    --win-bg: #008080;           /* Teal desktop */
+    --win-gray: #c0c0c0;         /* Classic gray */
+    --win-gray-light: #dfdfdf;   /* Highlight */
+    --win-gray-dark: #808080;    /* Shadow */
+    --win-white: #ffffff;
+    --win-black: #000000;
+    --win-navy: #000080;         /* Title bar blue */
+    --win-blue: #1084d0;         /* Selection blue */
+    
+    /* Borders for 3D effect */
+    --border-raised: inset -1px -1px var(--win-gray-dark), inset 1px 1px var(--win-white), inset -2px -2px var(--win-black), inset 2px 2px var(--win-gray-light);
+    --border-sunken: inset 1px 1px var(--win-gray-dark), inset -1px -1px var(--win-white), inset 2px 2px var(--win-black), inset -2px -2px var(--win-gray-light);
+    --border-button: inset -1px -1px var(--win-black), inset 1px 1px var(--win-white), inset -2px -2px var(--win-gray-dark), inset 2px 2px var(--win-gray-light);
+    --border-button-pressed: inset 1px 1px var(--win-black), inset -1px -1px var(--win-white), inset 2px 2px var(--win-gray-dark);
+    
+    --font-system: 'IBM Plex Mono', 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+    --font-display: 'VT323', monospace;
   }
 
   * {
@@ -52,52 +82,309 @@ const { title, description = "Interactive examples for Flocc, an agent-based mod
   }
 
   html, body {
-    font-family: var(--font-sans);
-    background: var(--color-bg);
-    color: var(--color-text);
-    line-height: 1.6;
+    font-family: var(--font-system);
+    font-size: 13px;
+    background: var(--win-bg);
+    color: var(--win-black);
+    line-height: 1.4;
+    min-height: 100vh;
+  }
+
+  /* Selection style */
+  ::selection {
+    background: var(--win-navy);
+    color: var(--win-white);
   }
 
   a {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  a:hover {
+    color: var(--win-navy);
     text-decoration: underline;
   }
 
-  nav {
+  a:hover {
+    color: var(--win-blue);
+  }
+
+  /* Desktop layout */
+  .desktop {
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  /* Taskbar */
+  .taskbar {
+    display: flex;
     align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--color-border);
+    gap: 4px;
+    padding: 2px 4px;
+    background: var(--win-gray);
+    border-top: 2px solid var(--win-white);
+    box-shadow: var(--border-raised);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 32px;
   }
 
-  nav .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-text);
-  }
-
-  nav .nav-links {
+  .start-button {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--win-gray);
+    box-shadow: var(--border-button);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--win-black);
+    text-decoration: none;
+    height: 24px;
   }
 
-  nav .nav-links a {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-  }
-
-  nav .nav-links a:hover {
-    color: var(--color-text);
+  .start-button:hover {
     text-decoration: none;
   }
 
-  main {
-    margin: 0 auto;
-    padding: 2rem;
+  .start-button:active {
+    box-shadow: var(--border-button-pressed);
+    padding: 3px 7px 1px 9px;
+  }
+
+  .start-icon {
+    font-size: 14px;
+    color: var(--win-navy);
+  }
+
+  .taskbar-links {
+    display: flex;
+    gap: 2px;
+    margin-left: 8px;
+  }
+
+  .taskbar-btn {
+    padding: 2px 12px;
+    background: var(--win-gray);
+    box-shadow: var(--border-button);
+    font-size: 11px;
+    color: var(--win-black);
+    text-decoration: none;
+    height: 22px;
+    display: flex;
+    align-items: center;
+  }
+
+  .taskbar-btn:hover {
+    text-decoration: none;
+  }
+
+  .taskbar-btn:active {
+    box-shadow: var(--border-button-pressed);
+  }
+
+  .clock {
+    margin-left: auto;
+    padding: 2px 8px;
+    background: var(--win-gray);
+    box-shadow: var(--border-sunken);
+    font-size: 11px;
+    font-family: var(--font-system);
+  }
+
+  /* Main workspace */
+  .workspace {
+    flex: 1;
+    padding: 16px;
+    padding-bottom: 48px; /* Space for taskbar */
+  }
+
+  /* Window component */
+  .window {
+    background: var(--win-gray);
+    box-shadow: var(--border-raised);
+    margin-bottom: 16px;
+  }
+
+  .window-title {
+    background: linear-gradient(90deg, var(--win-navy), var(--win-blue));
+    color: var(--win-white);
+    padding: 3px 4px;
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+
+  .window-title-text {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .window-controls {
+    display: flex;
+    gap: 2px;
+  }
+
+  .window-btn {
+    width: 16px;
+    height: 14px;
+    background: var(--win-gray);
+    box-shadow: var(--border-button);
+    font-size: 10px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .window-btn:active {
+    box-shadow: var(--border-button-pressed);
+  }
+
+  .window-content {
+    padding: 8px;
+  }
+
+  .window-content.no-padding {
+    padding: 0;
+  }
+
+  /* Sunken content area */
+  .sunken {
+    background: var(--win-white);
+    box-shadow: var(--border-sunken);
+    padding: 8px;
+  }
+
+  /* Button styles */
+  .btn {
+    padding: 4px 16px;
+    background: var(--win-gray);
+    box-shadow: var(--border-button);
+    font-family: var(--font-system);
+    font-size: 12px;
+    color: var(--win-black);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+  }
+
+  .btn:active {
+    box-shadow: var(--border-button-pressed);
+    padding: 5px 15px 3px 17px;
+  }
+
+  .btn:focus {
+    outline: 1px dotted var(--win-black);
+    outline-offset: -4px;
+  }
+
+  /* Form elements */
+  select {
+    padding: 2px 4px;
+    background: var(--win-white);
+    box-shadow: var(--border-sunken);
+    border: none;
+    font-family: var(--font-system);
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  select:focus {
+    outline: none;
+  }
+
+  input[type="text"] {
+    padding: 2px 4px;
+    background: var(--win-white);
+    box-shadow: var(--border-sunken);
+    border: none;
+    font-family: var(--font-system);
+    font-size: 12px;
+  }
+
+  /* Scrollbar styling (webkit) */
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: repeating-conic-gradient(var(--win-gray) 0% 25%, var(--win-white) 0% 50%) 50% / 2px 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--win-gray);
+    box-shadow: var(--border-button);
+  }
+
+  ::-webkit-scrollbar-button {
+    background: var(--win-gray);
+    box-shadow: var(--border-button);
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    background: var(--win-gray);
+    border-top: 1px solid var(--win-white);
+  }
+
+  .status-bar-item {
+    padding: 2px 8px;
+    box-shadow: var(--border-sunken);
+    font-size: 11px;
+    flex: 1;
+  }
+
+  /* Labels */
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  /* Group box */
+  .group-box {
+    border: 1px solid var(--win-gray-dark);
+    border-top-color: var(--win-white);
+    border-left-color: var(--win-white);
+    padding: 12px 8px 8px;
+    margin: 8px 0;
+    position: relative;
+  }
+
+  .group-box-title {
+    position: absolute;
+    top: -8px;
+    left: 8px;
+    background: var(--win-gray);
+    padding: 0 4px;
+    font-size: 11px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .taskbar-links {
+      display: none;
+    }
+    
+    .workspace {
+      padding: 8px;
+      padding-bottom: 40px;
+    }
   }
 </style>

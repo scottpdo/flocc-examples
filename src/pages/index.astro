@@ -4,102 +4,183 @@ import FlockingDemo from '../components/FlockingDemo.astro';
 ---
 
 <Layout title="Home">
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Flocc</h1>
-      <p class="tagline">Agent-based modeling in JavaScript</p>
-      <p class="description">
-        Build complex simulations with simple rules. Flocc makes it easy to create 
-        flocking behaviors, cellular automata, network models, and more.
-      </p>
-      <div class="cta">
-        <a href="/examples" class="button primary">Explore Examples</a>
-        <a href="https://flocc.network/docs" class="button secondary" target="_blank">Documentation</a>
+  <div class="home-layout">
+    <!-- Welcome Window -->
+    <div class="window welcome-window">
+      <div class="window-title">
+        <span class="window-title-text">
+          <span>📁</span>
+          Welcome to Flocc
+        </span>
+        <div class="window-controls">
+          <span class="window-btn">─</span>
+          <span class="window-btn">□</span>
+          <span class="window-btn">×</span>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="welcome-content">
+          <div class="logo-section">
+            <div class="logo-icon">🐦</div>
+            <h1>Flocc</h1>
+            <p class="version">Version 0.6.2</p>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <p class="tagline">Agent-based modeling in JavaScript</p>
+          
+          <p class="description">
+            Build complex simulations with simple rules. Create flocking behaviors, 
+            cellular automata, network models, and explore emergent phenomena.
+          </p>
+
+          <div class="button-row">
+            <a href="/examples" class="btn">
+              <span>📂</span> Browse Examples
+            </a>
+            <a href="https://flocc.network/docs" target="_blank" class="btn">
+              <span>📖</span> Documentation
+            </a>
+            <a href="https://github.com/scottpdo/flocc" target="_blank" class="btn">
+              <span>💾</span> Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="status-bar">
+        <div class="status-bar-item">Ready</div>
+        <div class="status-bar-item" style="flex: 0; min-width: 100px;">MIT License</div>
       </div>
     </div>
-    <div class="hero-demo">
-      <FlockingDemo />
+
+    <!-- Demo Window -->
+    <div class="window demo-window">
+      <div class="window-title">
+        <span class="window-title-text">
+          <span>🎬</span>
+          flocking_demo.exe
+        </span>
+        <div class="window-controls">
+          <span class="window-btn">─</span>
+          <span class="window-btn">□</span>
+          <span class="window-btn">×</span>
+        </div>
+      </div>
+      <div class="window-content no-padding">
+        <div class="demo-container">
+          <FlockingDemo />
+        </div>
+      </div>
+      <div class="status-bar">
+        <div class="status-bar-item">100 agents · Alignment · Cohesion · Separation</div>
+      </div>
     </div>
-  </section>
+  </div>
 </Layout>
 
 <style>
-  .hero {
+  .home-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    min-height: calc(100vh - 200px);
+    grid-template-columns: 400px 1fr;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+    align-items: start;
   }
 
-  .hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+  .welcome-window {
+    position: sticky;
+    top: 16px;
+  }
+
+  .welcome-content {
+    text-align: center;
+  }
+
+  .logo-section {
+    padding: 16px 0;
+  }
+
+  .logo-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+
+  .welcome-content h1 {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: normal;
+    color: var(--win-navy);
+    margin: 0;
+    letter-spacing: 2px;
+  }
+
+  .version {
+    font-size: 11px;
+    color: var(--win-gray-dark);
+    margin-top: 4px;
+  }
+
+  .divider {
+    height: 2px;
+    background: var(--win-gray-dark);
+    box-shadow: 0 1px 0 var(--win-white);
+    margin: 12px 0;
   }
 
   .tagline {
-    font-size: 1.5rem;
-    color: var(--color-text-muted);
-    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 12px;
   }
 
   .description {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-    max-width: 500px;
-    margin-bottom: 2rem;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--win-black);
+    margin-bottom: 16px;
+    text-align: left;
+    padding: 8px;
+    background: var(--win-white);
+    box-shadow: var(--border-sunken);
   }
 
-  .cta {
+  .button-row {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: all 0.2s;
+  .button-row .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
   }
 
-  .button.primary {
-    background: var(--color-accent);
-    color: white;
+  .demo-window {
+    min-height: 500px;
   }
 
-  .button.primary:hover {
-    background: #2563eb;
-    text-decoration: none;
-  }
-
-  .button.secondary {
-    background: var(--color-surface);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-  }
-
-  .button.secondary:hover {
-    background: var(--color-border);
-    text-decoration: none;
-  }
-
-  .hero-demo {
-    background: var(--color-surface);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
+  .demo-container {
+    background: #000;
+    min-height: 450px;
   }
 
   @media (max-width: 900px) {
-    .hero {
+    .home-layout {
       grid-template-columns: 1fr;
-      gap: 2rem;
     }
 
-    .hero-content h1 {
-      font-size: 3rem;
+    .welcome-window {
+      position: static;
+    }
+
+    .demo-container {
+      min-height: 300px;
     }
   }
 </style>

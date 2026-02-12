@@ -110,10 +110,10 @@
     environment.addAgent(createBoid());
   }
 
-  // Create renderer
+  // Create renderer with retro colors
   const renderer = new CanvasRenderer(environment, {
     canvas,
-    background: '#141414',
+    background: '#000080',  // Navy blue - classic Windows
   });
 
   renderer.render = (a: Agent, ctx: CanvasRenderingContext2D) => {
@@ -131,7 +131,7 @@
     ctx.lineTo(-4, 4);
     ctx.lineTo(-4, -4);
     ctx.closePath();
-    ctx.fillStyle = '#3b82f6';
+    ctx.fillStyle = '#00ff00';  // Classic green
     ctx.fill();
     ctx.restore();
   };

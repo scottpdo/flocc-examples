@@ -60,101 +60,193 @@ const dependencies = meta.dependencies || {};
 ---
 
 <Layout title={meta.title} description={meta.description}>
-  <div class="example-page">
-    <div class="header">
-      <a href="/examples" class="back">&larr; Back to Examples</a>
-      <h1>{meta.title}</h1>
+  <div class="example-layout">
+    <!-- Info Window -->
+    <div class="window info-window">
+      <div class="window-title">
+        <span class="window-title-text">
+          <span>📄</span>
+          {meta.title} - README.txt
+        </span>
+        <div class="window-controls">
+          <span class="window-btn">─</span>
+          <span class="window-btn">□</span>
+          <span class="window-btn">×</span>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="nav-row">
+          <a href="/examples" class="btn">
+            <span>⬅️</span> Back to Examples
+          </a>
+        </div>
+        
+        <h1 class="example-title">{meta.title}</h1>
+        
+        {(meta.topics?.length > 0 || meta.tags?.length > 0) && (
+          <div class="meta-row">
+            {meta.topics?.map((topic: string) => (
+              <span class="meta-topic">{topic}</span>
+            ))}
+            {meta.tags?.map((tag: string) => (
+              <span class="meta-tag">{tag}</span>
+            ))}
+          </div>
+        )}
+
+        <div class="readme-content sunken" set:html={parsedContent} />
+      </div>
     </div>
 
-    <div class="content" set:html={parsedContent} />
-
-    <div class="sandbox">
-      <SandpackExample code={code} dependencies={dependencies} markup={markup} style={style} client:load />
+    <!-- Code Window -->
+    <div class="window code-window">
+      <div class="window-title">
+        <span class="window-title-text">
+          <span>💻</span>
+          {slug}.js - Interactive Editor
+        </span>
+        <div class="window-controls">
+          <span class="window-btn">─</span>
+          <span class="window-btn">□</span>
+          <span class="window-btn">×</span>
+        </div>
+      </div>
+      <div class="window-content no-padding">
+        <div class="sandbox-container">
+          <SandpackExample code={code} dependencies={dependencies} markup={markup} style={style} client:load />
+        </div>
+      </div>
+      <div class="status-bar">
+        <div class="status-bar-item">Edit the code on the left · See results on the right</div>
+      </div>
     </div>
   </div>
 </Layout>
 
 <style>
-  .example-page {
-    max-width: 1600px;
+  .example-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1400px;
     margin: 0 auto;
   }
 
-  .header,
-  .content {
-    margin: 0 auto;
-    max-width: 1000px;
+  .info-window {
+    max-width: 800px;
   }
 
-  .back {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-bottom: 1rem;
+  .nav-row {
+    margin-bottom: 12px;
   }
 
-  .back:hover {
-    color: var(--color-text);
+  .nav-row .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
-  .header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+  .example-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: normal;
+    color: var(--win-navy);
+    margin: 0 0 8px 0;
   }
 
-  .content {
-    margin-bottom: 2rem;
-    line-height: 1.8;
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 12px;
   }
 
-  .content :global(h2) {
-    font-size: 1.5rem;
-    margin: 2rem 0 1rem;
-    color: var(--color-text);
+  .meta-topic,
+  .meta-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    box-shadow: var(--border-raised);
   }
 
-  .content :global(h3) {
-    font-size: 1.2rem;
-    margin: 1.5rem 0 0.75rem;
+  .meta-topic {
+    background: var(--win-navy);
+    color: var(--win-white);
   }
 
-  .content :global(p) {
-    margin-bottom: 1rem;
-    color: var(--color-text-muted);
+  .meta-tag {
+    background: var(--win-gray);
+    color: var(--win-black);
   }
 
-  .content :global(ul),
-  .content :global(ol) {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
+  .readme-content {
+    font-size: 12px;
+    line-height: 1.6;
+    max-height: 300px;
+    overflow-y: auto;
   }
 
-  .content :global(li) {
-    margin-bottom: 0.5rem;
-    color: var(--color-text-muted);
+  .readme-content :global(h2) {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0 8px 0;
+    color: var(--win-navy);
   }
 
-  .content :global(code) {
-    font-family: var(--font-mono);
-    background: var(--color-surface);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.9em;
+  .readme-content :global(h3) {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 12px 0 6px 0;
   }
 
-  .content :global(strong) {
-    color: var(--color-text);
+  .readme-content :global(p) {
+    margin-bottom: 8px;
   }
 
-  .sandbox {
-    max-width: 1600px;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 0 auto;
+  .readme-content :global(ul),
+  .readme-content :global(ol) {
+    margin: 8px 0;
+    padding-left: 20px;
   }
 
-  .sandbox :global(.sp-wrapper) {
-    background: var(--color-surface) !important;
+  .readme-content :global(li) {
+    margin-bottom: 4px;
+  }
+
+  .readme-content :global(code) {
+    font-family: var(--font-system);
+    background: var(--win-gray);
+    padding: 1px 4px;
+    font-size: 11px;
+  }
+
+  .readme-content :global(strong) {
+    font-weight: 600;
+  }
+
+  .code-window {
+    width: 100%;
+  }
+
+  .sandbox-container {
+    min-height: 500px;
+  }
+
+  .sandbox-container :global(.sp-wrapper) {
+    min-height: 500px;
+  }
+
+  .sandbox-container :global(.sp-layout) {
+    min-height: 500px;
+    border: none !important;
+  }
+
+  @media (max-width: 900px) {
+    .readme-content {
+      max-height: 200px;
+    }
+
+    .sandbox-container {
+      min-height: 400px;
+    }
   }
 </style>

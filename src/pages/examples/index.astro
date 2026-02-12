@@ -23,59 +23,68 @@ const allTags = [...new Set(examples.flatMap(e => e.tags))].sort();
 ---
 
 <Layout title="Examples">
-  <div class="header">
-    <h1>Examples</h1>
-    <p>Interactive simulations demonstrating Flocc's capabilities. Click any example to see the code and run it live.</p>
-  </div>
-
-  <div class="filters">
-    <div class="filter-group">
-      <label for="topics">Topics</label>
-      <select id="topics">
-        <option value="">All Topics</option>
-        {allTopics.map(topic => (
-          <option value={topic}>{topic}</option>
-        ))}
-      </select>
+  <div class="window explorer-window">
+    <div class="window-title">
+      <span class="window-title-text">
+        <span>📁</span>
+        C:\FLOCC\EXAMPLES
+      </span>
+      <div class="window-controls">
+        <span class="window-btn">─</span>
+        <span class="window-btn">□</span>
+        <span class="window-btn">×</span>
+      </div>
     </div>
-    <div class="filter-group">
-      <label for="tags">Tags</label>
-      <select id="tags">
-        <option value="">All Tags</option>
-        {allTags.map(tag => (
-          <option value={tag}>{tag}</option>
-        ))}
-      </select>
+    
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <span class="label">Topics:</span>
+        <select id="topics">
+          <option value="">All Topics</option>
+          {allTopics.map(topic => (
+            <option value={topic}>{topic}</option>
+          ))}
+        </select>
+      </div>
+      <div class="toolbar-group">
+        <span class="label">Tags:</span>
+        <select id="tags">
+          <option value="">All Tags</option>
+          {allTags.map(tag => (
+            <option value={tag}>{tag}</option>
+          ))}
+        </select>
+      </div>
+      <div class="toolbar-spacer"></div>
+      <span class="item-count" id="item-count">{examples.length} item(s)</span>
     </div>
-  </div>
 
-  <div class="grid" id="examples-grid">
-    {examples.map((example) => (
-      <a 
-        href={`/examples/${example.slug}`} 
-        class="card"
-        data-topics={JSON.stringify(example.topics)}
-        data-tags={JSON.stringify(example.tags)}
-      >
-        <div class="card-image">
-          <img src={example.image} alt={example.title} loading="lazy" />
+    <div class="window-content no-padding">
+      <div class="explorer-content">
+        <!-- File grid -->
+        <div class="file-grid" id="examples-grid">
+          {examples.map((example) => (
+            <a 
+              href={`/examples/${example.slug}`} 
+              class="file-item"
+              data-topics={JSON.stringify(example.topics)}
+              data-tags={JSON.stringify(example.tags)}
+            >
+              <div class="file-icon">
+                <img src={example.image} alt="" loading="lazy" />
+              </div>
+              <span class="file-name">{example.title}</span>
+            </a>
+          ))}
         </div>
-        <div class="card-content">
-          <h2>{example.title}</h2>
-          <p>{example.description}</p>
-          {(example.topics.length > 0 || example.tags.length > 0) && (
-            <div class="card-meta">
-              {example.topics.map(topic => (
-                <span class="topic">{topic}</span>
-              ))}
-              {example.tags.map(tag => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
-          )}
-        </div>
-      </a>
-    ))}
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-bar-item" id="status-text">{examples.length} object(s)</div>
+      <div class="status-bar-item" style="flex: 0; min-width: 150px;">Flocc Examples v0.6</div>
+    </div>
   </div>
 </Layout>
 
@@ -83,11 +92,14 @@ const allTags = [...new Set(examples.flatMap(e => e.tags))].sort();
   const topicsSelect = document.getElementById('topics') as HTMLSelectElement;
   const tagsSelect = document.getElementById('tags') as HTMLSelectElement;
   const grid = document.getElementById('examples-grid');
-  const cards = grid?.querySelectorAll('.card') as NodeListOf<HTMLAnchorElement>;
+  const cards = grid?.querySelectorAll('.file-item') as NodeListOf<HTMLAnchorElement>;
+  const itemCount = document.getElementById('item-count');
+  const statusText = document.getElementById('status-text');
 
   function filterExamples() {
     const selectedTopic = topicsSelect.value;
     const selectedTag = tagsSelect.value;
+    let visibleCount = 0;
 
     cards.forEach(card => {
       const topics = JSON.parse(card.dataset.topics || '[]');
@@ -98,10 +110,14 @@ const allTags = [...new Set(examples.flatMap(e => e.tags))].sort();
 
       if (matchesTopic && matchesTag) {
         card.style.display = 'flex';
+        visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    if (itemCount) itemCount.textContent = `${visibleCount} item(s)`;
+    if (statusText) statusText.textContent = `${visibleCount} object(s)`;
   }
 
   topicsSelect.addEventListener('change', filterExamples);
@@ -109,132 +125,129 @@ const allTags = [...new Set(examples.flatMap(e => e.tags))].sort();
 </script>
 
 <style>
-  .header {
-    margin-bottom: 2rem;
+  .explorer-window {
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
-  .header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .header p {
-    color: var(--color-text-muted);
-    font-size: 1.1rem;
-  }
-
-  .filters {
+  .toolbar {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 8px;
+    background: var(--win-gray);
+    border-bottom: 1px solid var(--win-gray-dark);
     flex-wrap: wrap;
   }
 
-  .filter-group {
+  .toolbar-group {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 4px;
   }
 
-  .filter-group label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    font-weight: 600;
+  .toolbar-group .label {
+    font-size: 11px;
+    margin: 0;
   }
 
-  .filter-group select {
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-    background: var(--color-surface);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    min-width: 180px;
-    cursor: pointer;
+  .toolbar-group select {
+    min-width: 140px;
   }
 
-  .filter-group select:focus {
-    outline: none;
-    border-color: var(--color-accent);
+  .toolbar-spacer {
+    flex: 1;
   }
 
-  .grid {
+  .item-count {
+    font-size: 11px;
+    color: var(--win-gray-dark);
+  }
+
+  .explorer-content {
+    background: var(--win-white);
+    box-shadow: var(--border-sunken);
+    margin: 4px;
+    min-height: 400px;
+    overflow: auto;
+  }
+
+  .file-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 16px;
   }
 
-  .card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.2s;
-    color: var(--color-text);
+  .file-item {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    text-decoration: none;
+    color: var(--win-black);
+    border: 1px solid transparent;
   }
 
-  .card:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
+  .file-item:hover {
+    background: var(--win-navy);
+    color: var(--win-white);
     text-decoration: none;
   }
 
-  .card-image {
-    aspect-ratio: 16 / 10;
-    background: var(--color-bg);
-    overflow: hidden;
+  .file-item:hover .file-icon {
+    filter: brightness(1.1);
   }
 
-  .card-image img {
+  .file-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--win-gray);
+    box-shadow: var(--border-raised);
+    margin-bottom: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .file-icon img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .card-content {
-    padding: 1.25rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  .file-name {
+    font-size: 11px;
+    text-align: center;
+    word-break: break-word;
+    max-width: 100px;
+    line-height: 1.2;
   }
 
-  .card-content h2 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
+  @media (max-width: 640px) {
+    .file-grid {
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 4px;
+      padding: 8px;
+    }
 
-  .card-content p {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    flex: 1;
-  }
+    .file-icon {
+      width: 48px;
+      height: 48px;
+    }
 
-  .card-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.75rem;
-  }
+    .file-name {
+      font-size: 10px;
+      max-width: 80px;
+    }
 
-  .card-meta .topic,
-  .card-meta .tag {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-  }
+    .toolbar {
+      gap: 8px;
+    }
 
-  .card-meta .topic {
-    background: rgba(59, 130, 246, 0.2);
-    color: var(--color-accent);
-  }
-
-  .card-meta .tag {
-    background: var(--color-border);
-    color: var(--color-text-muted);
+    .toolbar-group select {
+      min-width: 100px;
+    }
   }
 </style>

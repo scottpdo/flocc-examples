@@ -33,6 +33,7 @@ export default function SandpackExample({ code, markup, style, dependencies = {}
     ...dependencies,
   };
 
+  // Retro Windows 95 inspired theme
   return (
     <div className="sandpack-wrapper">
       <SandpackProvider
@@ -48,33 +49,33 @@ export default function SandpackExample({ code, markup, style, dependencies = {}
         }}
         theme={{
           colors: {
-            surface1: '#141414',
-            surface2: '#1e1e1e',
-            surface3: '#2a2a2a',
-            clickable: '#888',
-            base: '#e5e5e5',
-            disabled: '#555',
-            hover: '#e5e5e5',
-            accent: '#3b82f6',
-            error: '#ef4444',
-            errorSurface: '#2d1515',
+            surface1: '#000080',      // Navy blue background
+            surface2: '#000060',      // Darker navy
+            surface3: '#0000a0',      // Lighter navy
+            clickable: '#c0c0c0',     // Gray
+            base: '#00ff00',          // Green text (classic terminal)
+            disabled: '#808080',
+            hover: '#ffffff',
+            accent: '#00ff00',        // Green accent
+            error: '#ff0000',
+            errorSurface: '#400000',
           },
           syntax: {
-            plain: '#e5e5e5',
-            comment: { color: '#6a9955', fontStyle: 'italic' },
-            keyword: '#569cd6',
-            tag: '#569cd6',
-            punctuation: '#808080',
-            definition: '#dcdcaa',
-            property: '#9cdcfe',
-            static: '#4ec9b0',
-            string: '#ce9178',
+            plain: '#00ff00',         // Green
+            comment: { color: '#808080', fontStyle: 'italic' },
+            keyword: '#ffff00',       // Yellow
+            tag: '#00ffff',           // Cyan
+            punctuation: '#c0c0c0',   // Gray
+            definition: '#ffffff',    // White
+            property: '#00ffff',      // Cyan
+            static: '#ff00ff',        // Magenta
+            string: '#ff8000',        // Orange
           },
           font: {
-            body: '"Inter", system-ui, sans-serif',
-            mono: '"JetBrains Mono", monospace',
-            size: '14px',
-            lineHeight: '1.6',
+            body: '"IBM Plex Mono", "Courier New", monospace',
+            mono: '"IBM Plex Mono", "Courier New", monospace',
+            size: '13px',
+            lineHeight: '1.5',
           },
         }}
       >
@@ -82,12 +83,12 @@ export default function SandpackExample({ code, markup, style, dependencies = {}
           <SandpackCodeEditor
             showLineNumbers
             showTabs={false}
-            style={{ height: 500 }}
+            style={{ height: 500, minHeight: 500 }}
           />
           <SandpackPreview
             showOpenInCodeSandbox={false}
             showRefreshButton
-            style={{ height: 500 }}
+            style={{ height: 500, minHeight: 500 }}
           />
         </SandpackLayout>
       </SandpackProvider>
