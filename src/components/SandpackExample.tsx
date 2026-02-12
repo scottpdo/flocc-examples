@@ -74,7 +74,7 @@ export default function SandpackExample({ code, markup, style, dependencies = {}
           font: {
             body: '"IBM Plex Mono", "Courier New", monospace',
             mono: '"IBM Plex Mono", "Courier New", monospace',
-            size: '13px',
+            size: '15px',
             lineHeight: '1.5',
           },
         }}
