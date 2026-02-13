@@ -35,7 +35,7 @@ environment.set("size", SIZE);
 environment.set("degree", DEGREE);
 
 const renderer = new CanvasRenderer(environment, {
-  autoPosition: true,
+  // autoPosition: true,
   connectionOpacity: 0.25,
   width: 0.9 * Math.min(window.innerWidth, window.innerHeight),
   height: 0.9 * Math.min(window.innerWidth, window.innerHeight)
@@ -59,7 +59,7 @@ const x = (agent) => {
   const idx = network.indexOf(agent);
   const angle = idx / network.agents.length;
   return (
-    renderer.width / 2 + 0.4 * renderer.width * Math.cos(2 * Math.PI * angle)
+    (renderer.width / 2 + 0.4 * renderer.width * Math.cos(2 * Math.PI * angle)) / window.devicePixelRatio
   );
 };
 
@@ -67,7 +67,7 @@ const y = (agent) => {
   const idx = network.indexOf(agent);
   const angle = idx / network.agents.length;
   return (
-    renderer.width / 2 + 0.4 * renderer.width * Math.sin(2 * Math.PI * angle)
+    (renderer.width / 2 + 0.4 * renderer.width * Math.sin(2 * Math.PI * angle)) / window.devicePixelRatio
   );
 };
 
