@@ -1,15 +1,13 @@
 export const meta = {
   title: 'The Systems Game',
-  description: 'Lorem ipsum',
+  description: 'Joanna Macy\'s embodied exercise in systems thinking, translated into an agent-based model.',
   topics: ["Complex Systems"],
   tags: ["CanvasRenderer","Flocc UI"],
 };
 
-export const content = `<a href="https://workthatreconnects.org/resource/the-systems-game/" target="_blank"><i>The Systems Game</i></a>, by Joanna Macy, is played in an open space by a group of people. Each person selects two others in the group and tries to keep an equal distance between them and each of the other two. Physically playing The Systems Game tangibly illustrates many of the dynamics of complex systems — self-regulation through activity, emergent layers of activity (clockwise or counterclockwise group motion), and interdependence of parts.
+export const content = `<a href="https://workthatreconnects.org/resource/the-systems-game/" target="_blank"><i>The Systems Game</i></a>, designed by environmental philosopher <a href="https://en.wikipedia.org/wiki/Joanna_Macy" target="_blank">Joanna Macy</a>, is a participatory exercise for experiencing systems dynamics firsthand. Participants each secretly choose two other people and attempt to maintain equal distance from both. With everyone simultaneously pursuing this goal, the group self-organizes into emergent patterns—oscillations, rotations, sudden cascades—without any central control.
 
-<a href="https://www.youtube.com/watch?v=o_XRwN7UvIE" target="_blank">See <i>The Systems Game</i> played by a group of Carnegie Mellon University students.</a>
-
-In this computational model of <i>The Systems Game</i>, agents randomly select two others from which to find an equidistant position. By clicking “Show Constraints” and “Next Agent,” you can see the intent behind an agent's movement. If the system reaches a static configuration, clicking “Remove” will randomly remove five agents, and start the system in motion again.`;
+This computational model replicates the exercise: each agent selects two others and moves to equalize its distance from both. Watch for characteristic complex-systems phenomena: interdependence (perturbing one agent ripples through the system), self-regulation (the group continuously adjusts toward equilibrium), and emergent structure (collective rotations or static configurations). When the system freezes, removing agents restarts the dynamics. <a href="https://www.youtube.com/watch?v=o_XRwN7UvIE" target="_blank">Video of Carnegie Mellon students playing the physical game</a> shows the same dynamics in embodied form.`;
 
 export const code = `import { Agent, Environment, CanvasRenderer, utils, Vector } from "flocc";
 import { Panel, Button, Slider } from "flocc-ui";

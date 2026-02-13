@@ -1,13 +1,13 @@
 export const meta = {
   title: 'The Emperor\'s Dilemma',
-  description: 'Lorem ipsum',
+  description: 'How unpopular norms spread through enforcement rather than belief, creating pluralistic ignorance.',
   topics: ["Social Science"],
   tags: ["CanvasRenderer","Flocc UI","Network"],
 };
 
-export const content = `<a href="https://ndg.asc.upenn.edu/wp-content/uploads/2016/04/Centola-et-al-2005-AJS.pdf" target="_blank">The Emperor's Dilemma</a> (Centola, Willer & Macy, 2005) models how norms spread among populations despite low popularity. Similar to the <a href="https://en.wikipedia.org/wiki/Salem_witch_trials" target="_blank">Salem witch trials</a> of the 17th century, the phenomenon is caused “not by an outbreak of deviance, but of enforcement.” A few agents who are 'true believers' in the norm make it costly for nonbelievers to not take a stance — despite their indifference or even opposition, they become enforcers of the norm and cause it to spread across the population. This results in an environment where few actually believe in the dominant norm, but nearly all enforce it.
+export const content = `<a href="https://ndg.asc.upenn.edu/wp-content/uploads/2016/04/Centola-et-al-2005-AJS.pdf" target="_blank">The Emperor's Dilemma</a> (Centola, Willer & Macy, 2005) models how norms can dominate a population despite being privately unpopular—a phenomenon known as <a href="https://en.wikipedia.org/wiki/Pluralistic_ignorance" target="_blank">pluralistic ignorance</a>. The key mechanism is enforcement: a small minority of "true believers" (yellow) actively punish non-compliance, making it costly for skeptics to stay silent. Non-believers, seeing enforcement around them, comply and enforce the norm themselves (red), propagating it further—even though few genuinely support it.
 
-In this simulation, agents are connected in a small world network (most agents connected to those close to them, with a few 'random' connections to far-flung others). Red agents represent those complying with the norm, and the few yellow agents are those 'true believers' who always enforce the norm. Agents who do not believe in the norm will comply and enforce it if they see enough of their neighbors enforcing it. By adjusting the <code>cost</code>, percentage of <code>believers</code>, <code>strength</code> (maximum conviction against the norm), and <code>rewire</code> parameters, the spread of the norm will take different trajectories. What dynamics lead to it spreading more quickly, slowing, or halting?
+Agents are embedded in a <a href="https://en.wikipedia.org/wiki/Small-world_network" target="_blank">small-world network</a>: mostly local connections with occasional long-range ties. This topology accelerates norm spread by allowing enforcement to cascade quickly across distant clusters. The model captures dynamics observed in phenomena from the <a href="https://en.wikipedia.org/wiki/Salem_witch_trials" target="_blank">Salem witch trials</a> to authoritarian compliance: systems where outward conformity masks private dissent. By adjusting the cost of non-compliance, the proportion of true believers, and individual conviction strength, the simulation can produce rapid takeover, slow spread, or stalled diffusion—illuminating the fragile conditions under which unpopular norms persist or collapse.
 `;
 
 export const code = `import {

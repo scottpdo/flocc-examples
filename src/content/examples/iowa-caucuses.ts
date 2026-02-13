@@ -1,15 +1,13 @@
 export const meta = {
   title: 'Iowa Caucuses',
-  description: 'Lorem ipsum',
-  topics: ["Politics"],
+  description: 'A model of ranked-choice deliberation on a social network, capturing the Iowa caucus process.',
+  topics: ["Politics", "Social Science"],
   tags: ["CanvasRenderer","Network","TableRenderer"],
 };
 
-export const content = `This is a model of the <a href="https://en.wikipedia.org/wiki/Iowa_caucuses" target="_blank">Iowa caucuses</a>, a political event that combines voting and debate/discussion. In this model, voters and candidates are represented on a political compass, with each point in space representing a unique ideological viewpoint, all drawn from the same distribution function. Voters are also connected to each other, representing social relationships. They are connected to their closest neighbors ideologically, with random connections drawn to voters on other parts of the political spectrum.
+export const content = `This model simulates the <a href="https://en.wikipedia.org/wiki/Iowa_caucuses" target="_blank">Iowa caucuses</a>, a distinctive American political institution that blends voting with social deliberation. Unlike a simple ballot, the caucus involves multiple rounds: voters physically cluster with their preferred candidate, and candidates failing to reach a 15% viability threshold are eliminated, forcing their supporters to realign.
 
-The caucus proceeds like this: In the first round, each voter casts their vote for the candidate whose ideological location is 'closest' to theirs. Then, in following rounds, candidates receiving less than 15% of the total vote are marked not 'viable,' and voters who chose a nonviable candidate vote again by randomly picking one of the candidates chosen by their connections (including the same candidate). This continues until all candidates receiving votes have over 15% of the total.
-
-By situating the landscape of voters on a social network, it is possible for candidates receiving less than 15% of the vote in the first round to become viable candidates through their voters influencing others in subsequent rounds.
+Voters and candidates are positioned on a two-dimensional ideological space (a <a href="https://en.wikipedia.org/wiki/Political_compass" target="_blank">political compass</a>). Voters initially support the candidate nearest to their ideological position. Voters are also embedded in a social network—mostly ideological neighbors, with some cross-spectrum ties. When a voter's candidate becomes non-viable, they switch to a candidate supported by one of their network connections, simulating the persuasion and horse-trading that characterize real caucuses. This network structure allows initially marginal candidates to gain viability through social influence—a dynamic impossible in conventional voting models.
 `;
 
 export const code = `import { Agent, Environment, CanvasRenderer, Network, utils, TableRenderer } from "flocc";

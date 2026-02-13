@@ -1,16 +1,13 @@
 export const meta = {
   title: 'Controversial Debate and Public Opinion',
-  description: 'Lorem ipsum',
+  description: 'A model of opinion dynamics where debate can convince, repel, or sow doubt—producing stalemates or consensus.',
   topics: ["Politics","Social Science"],
   tags: ["Flocc UI","LineChartRenderer"],
 };
 
-export const content = `<a href="https://arxiv.org/pdf/1909.06483.pdf" target="_blank">This model</a> (Krause, Weyhausen-Brinkmann & Bornholdt, 2019) shows public opinion on an issue on which agents can be for, against, or neutral. With each tick, agents holding non-neutral opinions converse (or debate) with another agent.
+export const content = `<a href="https://arxiv.org/pdf/1909.06483.pdf" target="_blank">This model</a> (Krause, Weyhausen-Brinkmann & Bornholdt, 2019) explores the dynamics of public opinion on a controversial issue. Agents can hold one of three stances: <em>for</em>, <em>against</em>, or <em>neutral</em>. Each tick, an opinionated agent engages another in debate, with outcomes depending on both parties' positions.
 
-If the second has a neutral opinion, there is a baseline 50% chance that the first will convince it of their opinion. However, the first may also repel the second, in which case the second now has the opposite opinion.
-If the two have opposite opinions, then there is a chance that the second will doubt its opinion and begin holding a neutral opinion (as if persuaded by a strong argument).
-If the two have the same opinion, there is a (pretty slim) chance that the second will doubt its opinion and begin holding a neutral opinion (as if realizing flaws in the supporting argument).
-With starting parameters of 0.5 for repel and 0.1 for doubt, public opinion always reaches a 50-50 stalemate, even though initially many more agents are for versus against or neutral. By adjusting the parameters, the dynamics of public opinion can sway, from relatively uncontroversial (one view dominates), to volatile (large swings in which one is the majority opinion), to the stalemate shown below.
+When engaging a neutral agent, the speaker may convince them (the neutral adopts the speaker's view) or <em>repel</em> them (the neutral adopts the opposite view). When engaging an opponent, the speaker may cause them to doubt—retreating to neutrality as if confronted with a strong counterargument. Even same-side conversations can erode conviction, as agents occasionally doubt their own position's coherence. With baseline parameters, the system converges to a 50-50 stalemate—even when one view initially dominates—illustrating how debate can paradoxically prevent consensus. Adjusting the repel and doubt parameters produces qualitatively different regimes: near-unanimous consensus, volatile oscillations, or persistent polarization.
 `;
 
 export const code = `import { Agent, Environment, utils, LineChartRenderer } from "flocc";

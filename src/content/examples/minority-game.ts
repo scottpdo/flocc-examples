@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Minority Game',
-  description: 'Lorem ipsum',
-  topics: ["Information Theory"],
+  description: 'A model of market dynamics where agents compete to be in the minority, producing complex collective behavior.',
+  topics: ["Economics", "Information Theory"],
   tags: ["Histogram","LineChartRenderer"],
 };
 
-export const content = `In the minority game (based on the NetLogo model of the same name), agents make a guess of either 0 or 1 with each tick of the simulation. After each tick, the goal for each agent is to be in the minority (guessing the same as less than half of all other agents).
+export const content = `The <a href="https://en.wikipedia.org/wiki/Minority_game" target="_blank">Minority Game</a>, introduced by Challet and Zhang in 1997, is a simplified model of market dynamics. Each tick, agents independently choose one of two options (0 or 1). The winning side is the minority—those who chose the less popular option. This captures a core tension in competitive systems: if everyone follows the same strategy, that strategy becomes self-defeating.
 
-Agents are initialized with a set of strategies — binary strings, i.e. 010111011000… — and the history of recent winning (minority) guesses are stored as another binary string. A strategy 'chooses' the agent's guess by converting the history to a decimal number (i.e. 1101 → 13) and selecting that digit from the strategy (which is always either 0 or 1). After each tick, an agent updates the scores of all its strategies and selects the one with the highest score, using it for subsequent guesses. Although this behavior is somewhat opaque, it does result in unpredictable, chaotic behavior as agents attempt to guess at and outperform the market.
+Agents are equipped with multiple strategies (encoded as binary strings) that map recent history to a choice. After each round, strategies are scored based on whether they would have chosen the minority, and agents adopt their best-performing strategy. Despite the simplicity of the rules, the collective behavior is chaotic and unpredictable—the system never settles into a stable equilibrium, and no individual can consistently outperform the market. The model has been influential in <a href="https://en.wikipedia.org/wiki/Econophysics" target="_blank">econophysics</a> as a stylized illustration of how heterogeneous adaptive agents can produce complex aggregate dynamics.
 `;
 
 export const markup = `

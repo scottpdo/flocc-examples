@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Race to the Center',
-  description: 'Lorem ipsum',
+  description: 'Median voter dynamics driving two-party candidates toward centrist convergence.',
   topics: ["Politics","Social Science"],
   tags: ["CanvasRenderer","LineChartRenderer"],
 };
 
-export const content = `This simple model reflects a phenomenon of two-party politics where both candidates shift their positions to garner more votes. Voters are represented <a href="https://en.wikipedia.org/wiki/Left–right_political_spectrum" target="_blank">along a single axis</a>, and two candidates are initially placed at random positions in the left half and the right half (blue and red, respectively, as in U.S. politics). A voter casts their ballot for the candidate whose position is closer to theirs.
+export const content = `This model illustrates the <a href="https://en.wikipedia.org/wiki/Median_voter_theorem" target="_blank">median voter theorem</a>, a foundational result in political economy. Voters are distributed along a one-dimensional <a href="https://en.wikipedia.org/wiki/Left%E2%80%93right_political_spectrum" target="_blank">ideological spectrum</a>, and two candidates compete for their votes. Each voter supports whichever candidate is ideologically closer; the candidate with fewer votes then adjusts their position toward the center to capture more of the electorate.
 
-After each round of voting, the candidate with fewer votes shifts their position (there is no incentive for an incumbent to adopt a new position). With <code>LEARNING_RATE</code> set to 1, they will inevitably move toward the center, with the opponent doing the same if and when they are the minority candidate. With a lower <code>LEARNING_RATE</code>, the process still moves toward the center, but resembles a random walk, where candidates try out new positions that may be less optimal and find equilibrium more slowly.
+Under these conditions, both candidates converge toward the median voter's position—the "race to the center." With a high <code>LEARNING_RATE</code>, convergence is rapid and deterministic. With a lower rate, candidates explore suboptimal positions before settling, and the trajectory resembles a random walk. The model captures a basic tension in democratic politics: electoral incentives push candidates toward positions that maximize votes, often at the expense of ideological distinctiveness. Extensions to multiple dimensions or more than two candidates complicate this picture considerably.
 `;
 
 export const markup = `

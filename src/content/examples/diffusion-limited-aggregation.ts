@@ -1,11 +1,13 @@
 export const meta = {
   title: 'Diffusion Limited Aggregation',
-  description: 'Lorem ipsum',
-  topics: ["Artificial Life"],
+  description: 'Particles aggregating through random motion to form fractal, branching structures.',
+  topics: ["Physics", "Artificial Life"],
   tags: ["CanvasRenderer","Flocc UI"],
 };
 
-export const content = `In this model, translated from the <a href="https://www.complexity-explorables.org/explorables/particularly-stuck/" target="_blank">Complexity Explorables model “Particularly Stuck”</a> (Janina Schöneberger & Dirk Brockmann), particle-agents move noisily around in space, slowly spiraling toward the center. One particle is already stationary at the center, considered the 'aggregation,' and when other particles collide with it, they become part of a growing, emergent structure. Although the byproduct of random movement, the structure appears to have a fractal logic, branching outward like coral, neurons, or other natural objects.
+export const content = `<a href="https://en.wikipedia.org/wiki/Diffusion-limited_aggregation" target="_blank">Diffusion-Limited Aggregation</a> (DLA), first described by Witten and Sander in 1981, demonstrates how fractal structures can emerge from random motion. This implementation, adapted from the <a href="https://www.complexity-explorables.org/explorables/particularly-stuck/" target="_blank">Complexity Explorables model "Particularly Stuck"</a> (Janina Schöneberger & Dirk Brockmann), begins with a single stationary seed particle at the center. Free particles undergo noisy, spiraling trajectories; when one collides with the growing aggregate, it sticks permanently.
+
+The resulting structure is a branching, tree-like form with characteristic <a href="https://en.wikipedia.org/wiki/Fractal_dimension" target="_blank">fractal dimension</a>. This self-similar branching arises because particles are more likely to collide with the tips of existing branches—outer regions "shadow" inner ones, limiting growth there. DLA captures the essential physics of many natural phenomena: electrodeposition, mineral dendrites, lightning paths, and the growth of certain biological structures like coral and neuronal arbors.
 `;
 
 export const code = `import { Agent, Environment, CanvasRenderer, utils } from "flocc";

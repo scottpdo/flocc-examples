@@ -1,11 +1,13 @@
 export const meta = {
   title: 'Flocking (Heatmap)',
-  description: 'Lorem ipsum',
+  description: 'Boids flocking visualized as a density heatmap, revealing emergent group-level patterns.',
   topics: ["Ecology"],
   tags: ["Heatmap","KDTree"],
 };
 
-export const content = `In this remix of the original Flocking model, the distribution of Agents in space, rather than the individual Agents themselves, is visualized using a Heatmap. While it is more difficult to distinguish the behavior of individuals, group behavior becomes evident as flocks, emerging and dispersing over time, are presented as cells on the Heatmap, similar to emergent lifeforms in the Game of Life.`;
+export const content = `This model applies <a href="https://www.red3d.com/cwr/boids/" target="_blank">Reynolds' boids algorithm</a> but shifts the visualization from individual agents to their aggregate spatial distribution. Using a <code>Heatmap</code> renderer, regions of high agent density appear as bright cells, while sparse regions remain dark. The result foregrounds <em>group-level</em> behavior over individual trajectories.
+
+What emerges is reminiscent of cellular automata: flocks materialize as glowing clusters that drift, merge, and fragment across the grid. This perspective illustrates a key insight from complexity science—that the same underlying dynamics can appear qualitatively different depending on the level of description. Where the standard flocking visualization emphasizes individual agents and their local interactions, the heatmap reveals the macroscopic patterns those interactions produce.`;
 
 export const code = `import { Agent, Environment, Heatmap, KDTree, Vector, utils } from "flocc";
 

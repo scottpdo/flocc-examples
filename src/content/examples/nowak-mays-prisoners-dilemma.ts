@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Nowak and May\'s Prisoner\'s Dilemma',
-  description: 'Lorem ipsum',
+  description: 'Spatial game theory showing how cooperation and defection coexist in mesmerizing dynamic patterns.',
   topics: ["Complex Systems","Game Theory"],
   tags: ["Terrain"],
 };
 
-export const content = `In a <a href="https://www.nature.com/articles/359826a0" target="_blank">1992 <i>Nature</i> article</a>, Nowak & May published surprising findings in their spatial model of the Prisoner's Dilemma. Although the Nash equilibrium of the standard <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma" target="_blank">Prisoner's Dilemma</a> is for neither player to cooperate, in Nowak & May's model, cooperation and defection dynamically coexist, spreading and receding across the 2-dimensional lattice of 'players.' Each player considers the payoffs that each of its neighbors receives by playing their current strategy (cooperate or defect), and then changes their strategy to the highest-scoring strategy among their neighbors. Defecting (colored in red, with first-time defectors yellow) spreads from a single initial defector at the center, but cooperating (blue, with first-time cooperators green) is always able to remain a significant strategy.
+export const content = `In a landmark <a href="https://www.nature.com/articles/359826a0" target="_blank">1992 <i>Nature</i> paper</a>, Nowak and May demonstrated that embedding the <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma" target="_blank">Prisoner's Dilemma</a> in space fundamentally changes its dynamics. In the classic non-spatial game, the <a href="https://en.wikipedia.org/wiki/Nash_equilibrium" target="_blank">Nash equilibrium</a> is mutual defection—cooperation is irrational. But when players occupy cells on a lattice and imitate the most successful strategy among their neighbors, cooperation and defection coexist in perpetual, mesmerizing flux.
 
-A year after the publishing of Nowak & May's model, <a href="https://www.pnas.org/content/90/16/7716" target="_blank">Huberman & Glance responded in PNAS</a>, proving that the hypnotizing dynamic patterns created by the Nowak & May model were an artifact of synchronous updating across all players — if players update asynchronously, defecting will become the dominant equilibrium strategy.`;
+Starting from a single defector at the center (red/yellow), defection spreads outward but never dominates; cooperators (blue/green) persist in clusters and counterattack. The resulting patterns—kaleidoscopic waves and stable boundaries—arise from local imitation dynamics. However, as <a href="https://www.pnas.org/content/90/16/7716" target="_blank">Huberman and Glance showed in 1993</a>, these patterns depend critically on synchronous updating; with asynchronous updates (one player at a time), defection eventually wins. The model illustrates both the power of spatial structure to sustain cooperation and the sensitivity of outcomes to seemingly minor procedural details.`;
 
 export const code = `import { Environment, CanvasRenderer, Terrain, Colors, NumArray } from "flocc";
 

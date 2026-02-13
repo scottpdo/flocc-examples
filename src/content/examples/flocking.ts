@@ -5,24 +5,9 @@ export const meta = {
   tags: ['CanvasRenderer', 'KDTree'],
 };
 
-export const content = `
-## About
+export const content = `Flocking is one of the most celebrated examples of emergent behavior in complex systems. First described by <a href="https://www.red3d.com/cwr/boids/" target="_blank">Craig Reynolds in 1986</a>, the "boids" algorithm demonstrates how realistic collective motion—resembling flocks of birds, schools of fish, or swarms of insects—arises from agents following just three local rules: <em>alignment</em> (steer toward the average heading of nearby flockmates), <em>cohesion</em> (steer toward the center of mass of nearby flockmates), and <em>separation</em> (avoid crowding neighbors).
 
-Flocking is one of the most iconic examples of emergent behavior in complex systems. First described by Craig Reynolds in 1986, the "boids" algorithm shows how realistic flocking patterns emerge from agents following just three simple rules:
-
-1. **Alignment**: Steer towards the average heading of nearby flockmates
-2. **Cohesion**: Steer towards the center of mass of nearby flockmates  
-3. **Separation**: Avoid crowding nearby flockmates
-
-Each agent has a perception radius within which it considers its neighbors. The balance of these three forces creates the characteristic swirling, organic motion of flocks.
-
-## Try It
-
-Edit the code below to experiment:
-- Change \`SPEED\` to make boids faster or slower
-- Adjust \`PERCEPTION\` to change how far boids can see
-- Modify \`SEPARATION\` to control personal space
-- Try changing the number of boids
+Each agent perceives only its local neighborhood and has no knowledge of the flock as a whole, yet the interplay of these simple rules produces the characteristic swirling, organic motion observed in nature. The model illustrates a core principle of complexity science: global patterns need not require global coordination. Reynolds' work has influenced fields from computer graphics (where boids power crowd simulations in film) to robotics and the study of <a href="https://en.wikipedia.org/wiki/Swarm_intelligence" target="_blank">swarm intelligence</a>.
 `;
 
 export const code = `import { Agent, Environment, CanvasRenderer, KDTree, Vector, utils } from "flocc";

@@ -1,7 +1,7 @@
 export const meta = {
   title: 'Lorenz Attractor',
-  description: 'Lorem ipsum',
-  topics: ["Physics"],
+  description: 'The iconic butterfly-shaped strange attractor, demonstrating deterministic chaos.',
+  topics: ["Physics", "Mathematics"],
   tags: [],
   dependencies: {
     'three': '0.112.0',
@@ -9,9 +9,9 @@ export const meta = {
   },
 };
 
-export const content = `The <a href="https://en.wikipedia.org/wiki/Lorenz_system" target="_blank">Lorenz system</a> is a set of three interrelated differential equations that, with certain starting parameters, can result in locally chaotic but globally predictable values. In this model, five agents start at random positions (between 0 and 1 for x, y, and z values) and follow the update rules of the Lorenz system. Although their paths are initially similar, they soon diverge and one agent's position is totally unrelated to the next. However, the five paths trace the form of a Lorenz attractor — a set of solutions to the system within which any given agent's position will lie. Since there are no feedback loops between agents interacting with one another, this is an example of a <i>complex physical system</i> rather than a complex adaptive system.
+export const content = `The <a href="https://en.wikipedia.org/wiki/Lorenz_system" target="_blank">Lorenz system</a>, discovered by meteorologist <a href="https://en.wikipedia.org/wiki/Edward_Norton_Lorenz" target="_blank">Edward Lorenz</a> in 1963, is a set of three coupled differential equations that became foundational to <a href="https://en.wikipedia.org/wiki/Chaos_theory" target="_blank">chaos theory</a>. The system is deterministic—given initial conditions, its future is uniquely determined—yet it exhibits extreme sensitivity: trajectories starting arbitrarily close together diverge exponentially. This is the famous "butterfly effect."
 
-The visualization uses Three.js for rendering.`;
+In this visualization, five agents begin at nearly identical positions and evolve according to the Lorenz equations. Initially their paths are indistinguishable, but they soon diverge wildly—after enough time, their positions are effectively uncorrelated. Yet all five remain confined to the same <a href="https://en.wikipedia.org/wiki/Attractor#Strange_attractor" target="_blank">strange attractor</a>, tracing its characteristic butterfly shape. Unlike the agent-based models elsewhere on this site, there is no interaction between agents; complexity arises purely from the nonlinear dynamics of the equations themselves.`;
 
 export const code = `import { Agent, Environment } from "flocc";
 import * as THREE from "three";

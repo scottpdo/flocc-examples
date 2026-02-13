@@ -1,6 +1,6 @@
 export const meta = {
-  title: 'Flocking (3d)',
-  description: 'Lorem ipsum',
+  title: 'Flocking (3D)',
+  description: 'Reynolds\' boids algorithm extended into three dimensions, visualized with Three.js.',
   topics: ["Ecology","Physics"],
   tags: ["KDTree"],
   dependencies: {
@@ -9,9 +9,9 @@ export const meta = {
   },
 };
 
-export const content = `This model extends the 2d flocking model into 3 dimensions, using Three.js instead of Flocc renderers to visualize the emergence of flocking behavior.
+export const content = `This model extends <a href="https://www.red3d.com/cwr/boids/" target="_blank">Craig Reynolds' boids algorithm</a> into three dimensions, demonstrating that the same local rules—alignment, cohesion, and separation—produce realistic flocking behavior regardless of dimensionality. The visualization uses <a href="https://threejs.org/" target="_blank">Three.js</a> rather than Flocc's built-in renderers, illustrating how Flocc's agent-based logic can integrate with external graphics libraries.
 
-Like many other models, the environment is bounded such that agents that go outside of the cube will emerge on the other side.`;
+The environment is toroidal: agents exiting one face of the bounding cube reappear on the opposite side, eliminating edge effects and allowing flocks to move continuously through space. Observe how three-dimensional flocking reveals behaviors less apparent in 2D—such as the formation of spherical clusters and corkscrew trajectories—as agents balance the competing demands of staying together, matching velocity, and maintaining personal space.`;
 
 export const code = `import { Agent, Environment, KDTree, utils } from "flocc";
 import * as THREE from "three";

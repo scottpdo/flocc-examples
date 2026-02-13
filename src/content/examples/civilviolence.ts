@@ -1,14 +1,13 @@
 export const meta = {
   title: 'Civil Violence',
-  description: 'Lorem ipsum',
+  description: 'Epstein\'s model of rebellion dynamics, showing how legitimacy and enforcement shape outbreaks of civil unrest.',
   topics: ["Politics","Social Science"],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `
-This implementation of Joshua Epstein's <a href="https://www.pnas.org/doi/10.1073/pnas.092080199" target="_blank">Civil Violence Model</a> simulates outbreaks of unrest against a central authority by agents questioning its legitimacy.
+export const content = `This implementation of Joshua Epstein's <a href="https://www.pnas.org/doi/10.1073/pnas.092080199" target="_blank">Civil Violence Model</a> (2002) simulates the emergence of rebellion against a central authority. The model explores how perceived government legitimacy and the risk of arrest interact to produce collective action—or suppress it.
 
-In this visualization, cops are represented as blue pixels. Civilians are represented by gray, red, or white pixels. Every turn, some civilians will go from inactive (gray) to active (red), depending on their own threshold and the exogenous legitimacy of the government. However, a cop who is next to an active civilian will arrest them (turning them white and unable to move) for a fixed number of turns set by the jail term. By updating parameters for legitimacy, jail term, % full, and % Cops, different dynamics will arise, from a peaceful population to periodic outbursts to near-constant anarchy.
+Civilians (gray, red, or white pixels) each have a "grievance" derived from their hardship and the government's legitimacy. When grievance exceeds risk aversion (modulated by the local presence of cops), a civilian becomes "active" (red), openly rebelling. Cops (blue) arrest adjacent active civilians, who then serve a jail term (white). The interplay of these rules generates rich dynamics: high legitimacy and heavy policing produce quiet populations; low legitimacy and sparse enforcement yield near-constant unrest; intermediate values often produce <em>punctuated equilibria</em>—long periods of calm interrupted by sudden outbursts as localized grievances cascade into mass rebellion.
 `;
 
 export const code = `import { Environment, CanvasRenderer, Terrain, utils, Colors } from "flocc";

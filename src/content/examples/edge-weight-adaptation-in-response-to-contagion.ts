@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Edge Weight Adaptation in Response to Contagion',
-  description: 'Lorem ipsum',
+  description: 'A network contagion model where self-isolation and lockdowns produce waves of infection reminiscent of COVID-19.',
   topics: ["Complex Systems","Epidemiology"],
-  tags: ["LineChart","Network"],
+  tags: ["LineChartRenderer","Network"],
 };
 
-export const content = `In this model, designed and presented at the Complex Networks Winter Workshop 2021 by Herzog, Johnson, Stone, Gao, & Donaldson, a contagion is released on a network. Agents who are infected might infect others, but they might also self-isolate, reducing their likelihood of infecting others to 0. If enough agents become infected, a global 'lockdown' is imposed, and all agents may choose to self-isolate (with a higher likelihood if one is infected or has a neighbor who is infected).
+export const content = `This model, designed and presented at the Complex Networks Winter Workshop 2021 by Herzog, Johnson, Stone, Gao, and Donaldson, explores the interplay between contagion dynamics and adaptive behavior. A pathogen spreads through a network; infected agents may self-isolate (reducing transmission to zero), and if infections exceed a threshold, a global lockdown is imposed, increasing isolation probability for all agents—especially those who are infected or have infected neighbors.
 
-In a typical simulation run, we can see dynamics similar to the spread of COVID-19 in the United States and other countries in 2020. Harsh measures are imposed, and the contagion spread dies down. However, once lockdowns are lifted and typical behavior resumes, the rate of spread begins increasing again, and more become infected. Since there is no immunity in this model, these cyclical dynamics could continue indefinitely.
+The resulting dynamics mirror patterns observed during the COVID-19 pandemic. Lockdowns suppress transmission, infections decline, restrictions lift, behavior normalizes, and a new wave begins. Without immunity (agents can be reinfected), the system exhibits persistent oscillations rather than convergence to herd immunity or extinction. The model illustrates how feedback between disease prevalence and human behavior can generate cyclical epidemic waves—a key insight for understanding real-world pandemic dynamics.
 `;
 
 export const code = `import { Agent, Environment, utils, Network, LineChartRenderer, CanvasRenderer } from "flocc";

@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Voting',
-  description: 'Lorem ipsum',
+  description: 'A spatial model of opinion dynamics where local majorities drive the emergence of polarized regions.',
   topics: ["Politics","Social Science"],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `Based on the model described by Rudy Rucker in “Artificial Life Lab” and implemented in NetLogo, this model simulates a voting process and the emergence of polarized opinions. Each agent samples its neighbors within <code>RADIUS</code> and, if there's a clear super-majority with a different vote from the agent, it will change its vote (i.e. bowing to social pressure).
+export const content = `This model, adapted from Rudy Rucker's <a href="https://www.rudyrucker.com/computersimulationsbook/" target="_blank"><i>Artificial Life Lab</i></a>, simulates how local social pressure can produce large-scale political polarization. Each cell on the grid holds a binary opinion (visualized as black or white). Each tick, a cell surveys its neighbors within a given <code>RADIUS</code>; if a clear supermajority holds the opposite opinion, the cell switches sides.
 
-By expanding the <code>RADIUS</code> parameter, regions of agents with the same opinion become larger and more defined.
+The result is the spontaneous formation of homogeneous regions—clusters where neighboring cells share the same opinion. As the perception radius increases, these regions grow larger and their boundaries smoother, reflecting how broader social influence can amplify conformity. The model demonstrates a key dynamic in opinion formation: even without strong individual biases, the pressure to align with one's neighbors can drive a population toward spatial segregation of beliefs.
 `;
 
 export const code = `import { Environment, Terrain, CanvasRenderer } from "flocc";
