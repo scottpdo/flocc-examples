@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Preferential Attachment Network',
-  description: 'Lorem ipsum',
-  topics: [],
+  description: 'The Barabási-Albert model: "rich get richer" dynamics producing scale-free networks.',
+  topics: ["Network Science"],
   tags: ["Network"],
 };
 
-export const content = `In network science, a preferential attachment network is a type of network structure where just a few nodes have a large number of connections to others, while most nodes have a small number of connections. This results in highly unbalanced networks with large disparities of degree, although degree is predictable based on the size of the network and the number of connections used in generating it. An example of a preferential attachment network is X (formerly Twitter), where a few accounts have huge number of followers and most accounts have relatively few.
+export const content = `<a href="https://en.wikipedia.org/wiki/Preferential_attachment" target="_blank">Preferential attachment</a>, formalized by <a href="https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model" target="_blank">Barabási and Albert in 1999</a>, is a generative mechanism for <a href="https://en.wikipedia.org/wiki/Scale-free_network" target="_blank">scale-free networks</a>—networks where a few "hub" nodes have vastly more connections than most others. The rule is simple: when a new node joins the network, it preferentially connects to nodes that already have many connections. This "rich get richer" dynamic amplifies early advantages, producing the heavy-tailed degree distributions observed in many real-world networks.
 
-This model shows how to generate a preferential attachment network from a target size and degree for new nodes. When agents are added to the network, they connect to a certain number of other agents based on how many connections existing agents in the network have. This results in those that were added earliest having the highest number of connections, on average.
+Examples abound: on X (formerly Twitter), a small number of accounts have millions of followers while most have few; on the web, a handful of sites attract the vast majority of links; in citation networks, a few papers accumulate enormous citation counts. This model visualizes the growth process: nodes arrive sequentially, each connecting to existing nodes with probability proportional to their current degree. The result is a highly unequal but predictable structure, where the oldest nodes tend to become the largest hubs.
 `;
 
 export const markup = `

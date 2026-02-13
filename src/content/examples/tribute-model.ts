@@ -1,14 +1,13 @@
 export const meta = {
   title: 'Tribute Model',
-  description: 'Lorem ipsum',
+  description: 'Axelrod\'s model of state formation through tribute extraction and alliance commitment.',
   topics: ["Politics","Social Science"],
   tags: ["LineChartRenderer","TableRenderer"],
 };
 
+export const content = `This model, based on Robert Axelrod's <a href="http://www-personal.umich.edu/~axe/research/Building.pdf" target="_blank"><i>Building New Political Actors</i></a>, explores how state-like entities emerge, accumulate power, and eventually dissolve—dynamics exemplified by the rise and fall of the Soviet Union. The model abstracts the essential logic: entities demand <a href="https://en.wikipedia.org/wiki/Tribute" target="_blank">tribute</a> from neighbors, who must choose whether to pay or fight.
 
-export const content = `This model, based on Robert Axelrod's <a href="http://www-personal.umich.edu/~axe/research/Building.pdf" target="_blank"><i>Building New Political Actors</i></a>, attempts to show how state-like actors can emerge, gain power over other entities, and dissipate over time. In 20th century history, the Soviet Union provides an example of this lifecycle, emerging with the Russian Revolution of 1917, building its sphere of influence post-World War II, and dissolving in the early 1990s.
-
-In this model, ten entities are situated on a linear landscape. Each turn, three are randomly chosen to demand tribute from others, who in turn may choose to either pay or to fight. By paying tribute, commitments are formed between more powerful and less powerful entities, and entities committed to each other may fight together against their enemies (fighting leads to decreased commitment). The functions of tribute and bidirectional commitments can lead to a dynamic political landscape, with actors gaining power and influence and sometimes losing it as others emerge over time.
+Ten entities occupy a linear landscape. Each turn, some demand tribute from others. Paying tribute creates <em>commitment</em>: a hierarchical relationship where the subordinate may later support the dominant entity in conflicts. Fighting erodes commitment but may be necessary to resist domination. Over many iterations, some entities grow powerful by extracting tribute and building networks of committed allies; others decline or are absorbed. The system exhibits characteristic historical patterns: periods of consolidation, the emergence of hegemonic actors, and eventual fragmentation as overextended powers lose control of their peripheries.
 `;
 
 export const markup = `

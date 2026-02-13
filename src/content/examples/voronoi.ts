@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Emergent Voronoi',
-  description: 'Lorem ipsum',
-  topics: [],
+  description: 'An agent-based approach to constructing Voronoi diagrams through emergent boundary detection.',
+  topics: ["Mathematics", "Physics"],
   tags: ["CanvasRenderer"],
 };
 
-export const content = `A Voronoi diagram divides a plane into a set of non-overlapping regions, where each region is the set of points closest to a given point in that region.
+export const content = `A <a href="https://en.wikipedia.org/wiki/Voronoi_diagram" target="_blank">Voronoi diagram</a> partitions a plane into regions, where each region contains all points closer to one "seed" point than to any other. Voronoi diagrams appear throughout nature and science—from the territories of competing species to the structure of foams and crystals.
 
-One method of deriving a Voronoi diagram from a set of points on a plane is through the emergent movement of (many more) random vectors on the plane. In this example, 25 random points are placed on the plane to divide it into regions. Then, 1,000 random vectors (points with a random directional velocity) are placed and begin moving until they are the same distance from the two nearest points. Then, they stop. The resulting accumulation of stationary vectors describes the boundaries of the Voronoi diagram.
+Rather than computing the diagram analytically, this model derives it through emergent agent behavior. Seed points are scattered randomly across the plane; then many more agents with random velocities begin moving. Each agent stops when it reaches a position equidistant from the two nearest seeds—that is, on the boundary between two Voronoi cells. The accumulation of stationary agents traces out the diagram's edges. This approach illustrates how global geometric structures can emerge from local distance-seeking behavior, without any agent having knowledge of the diagram as a whole.
 `;
 
 export const code = `import { Agent, Environment, CanvasRenderer, utils } from "flocc";

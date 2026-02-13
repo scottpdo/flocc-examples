@@ -1,15 +1,13 @@
 export const meta = {
   title: 'Forest Fire',
-  description: 'Lorem ipsum',
-  topics: ["Ecology"],
+  description: 'A percolation model demonstrating critical thresholds in fire spread through a forest.',
+  topics: ["Ecology", "Physics"],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `The fire model simulates how fire spreads through a forest. It starts with a wave of trees simultaneously catching fire, and with every tick of the simulation, a tree with at least one neighboring tree (to the north, south, east, or west) on fire will also catch fire.
+export const content = `The Forest Fire model is a classic demonstration of <a href="https://en.wikipedia.org/wiki/Percolation_theory" target="_blank">percolation</a>—the study of how connectivity in a system determines whether a process (here, fire) can spread across it. Trees are randomly distributed on a grid according to a density parameter (<code>PERCENT_FULL</code>). Fire ignites on one edge and propagates to orthogonally adjacent trees (north, south, east, west) each tick.
 
-The PERCENT_FULL parameter determines how crowded the forest is. Set to 1.0 (100% full), every cell in the grid will be occupied by a tree, and the fire will deterministically sweep across the entire forest. However, around 0.59 (59% full), there is a threshold, and value below 0.59 will rarely result in the entire forest being burned, while above 0.59 the entire forest will almost always catch fire.
-
-Read more at https://en.wikipedia.org/wiki/Forest-fire_model
+The model exhibits a <a href="https://en.wikipedia.org/wiki/Percolation_threshold" target="_blank">critical threshold</a> around 59% density. Below this threshold, the forest is too sparse for fire to percolate across the grid—isolated clusters burn out independently. Above the threshold, trees form a connected network that allows fire to sweep through nearly the entire landscape. This phase transition is sharp: small changes in density near the critical point produce dramatic differences in outcome. The same mathematics governs phenomena from epidemic spread to the conductivity of composite materials.
 `;
 
 export const code = `import { Environment, Terrain, Colors, CanvasRenderer } from "flocc";

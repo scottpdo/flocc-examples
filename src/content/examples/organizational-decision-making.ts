@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Organizational Decision Making',
-  description: 'Lorem ipsum',
-  topics: ["Information Theory"],
+  description: 'A hierarchical organization solving binary problems, illustrating limits of distributed computation.',
+  topics: ["Information Theory", "Social Science"],
   tags: ["CanvasRenderer","LineChartRenderer"],
 };
 
-export const content = `This model, outlined in <a href="https://press.princeton.edu/books/paperback/9780691127026/complex-adaptive-systems" target="_blank">Miller & Page's <i>Complex Adaptive Systems</i></a>, represents an organization that makes “decisions” — binary outputs of either “0” or “1” — based on four-bit binary input “problems” (for example, “0110” or “1101”). The organization is structured with three agents, who each make decisions based on two-bit binary inputs (“00,” “01,” “10,” or “11”). They are all initialized with a “decision table” that determines what output they produce for each input. Two of the agents take input directly from the four-bit problem (the first two and the last two digits, respectively), and the third agent takes input from these agents' outputs, outputting the organization's decision.
+export const content = `This model, from <a href="https://press.princeton.edu/books/paperback/9780691127026/complex-adaptive-systems" target="_blank">Miller and Page's <i>Complex Adaptive Systems</i></a>, abstracts an organization as a simple computational structure. The "organization" must produce binary decisions (0 or 1) in response to four-bit input "problems." Three agents, each equipped with a lookup table mapping two-bit inputs to one-bit outputs, are arranged hierarchically: two "front-line" agents each process half of the input; a "manager" agent takes their outputs and produces the organization's final decision.
 
-Since each problem has a “correct” solution, and there are 16 unique problem-solution pairs, it's unlikely that the organization will correctly decide every problem. The organization's baseline (percent of problems it will correctly decide) is displayed at the top, and the line chart updates to show a running tally of the mean percent of problems decided correctly.
+Given 16 possible problems, each with a "correct" answer, a randomly initialized organization will typically solve only a fraction correctly. The model illustrates fundamental limits of <a href="https://en.wikipedia.org/wiki/Distributed_computing" target="_blank">distributed computation</a>: not all functions can be computed by composing local decisions. It also provides a framework for exploring organizational learning, adaptation, and the trade-offs between hierarchy depth, agent complexity, and overall performance.
 `;
 
 export const markup = `

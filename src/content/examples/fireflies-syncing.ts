@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Fireflies Syncing',
-  description: 'Lorem ipsum',
-  topics: ["Ecology"],
+  description: 'Pulse-coupled oscillators synchronizing through local interactions, inspired by Thai fireflies.',
+  topics: ["Ecology", "Physics"],
   tags: ["CanvasRenderer","KDTree"],
 };
 
-export const content = `This model, based on observations of fireflies in Thailand, shows how a system of distributed entities with periodic behavior can eventually become nearly perfectly in sync. Each 'firefly' agent has an internal clock, and when it flashes, nearby fireflies accelerate their clocks forward slightly. As the fireflies randomly navigate the environment, they encounter more and more flashing fireflies and grow more in sync with them. After a relatively short amount of time, all the fireflies are flashing in unison, with no top-down or centralized behavior organizing them. Like in the flocking model, this behavior emerges out of the interactions of many individual agents.
+export const content = `This model demonstrates <a href="https://en.wikipedia.org/wiki/Synchronization" target="_blank">spontaneous synchronization</a>, a phenomenon observed in Thai fireflies, heart pacemaker cells, and many other biological and physical systems. Each firefly agent has an internal oscillator (a "clock") that triggers a flash when it completes a cycle. When a firefly sees a neighbor flash, it nudges its own clock forward slightly—a mechanism called <a href="https://en.wikipedia.org/wiki/Pulse-coupled_oscillator" target="_blank">pulse coupling</a>.
 
-The implementation of this model is indebted to Nicky Case's interactive explorable <a href="https://ncase.me/fireflies/" target="_blank">“Fireflies”</a>, and the phenomenon is described in the opening chapter of Steven Strogatz's book <a href="https://www.stevenstrogatz.com/books/sync-the-emerging-science-of-spontaneous-order" target="_blank"><i>Sync: How Order Emerges from Chaos in the Universe, Nature, and Daily Life.</i></a>`;
+Initially, flashes are scattered randomly across the population. But through repeated local interactions, the fireflies gradually align their phases until, remarkably, the entire swarm flashes in unison—without any central coordinator or global signal. This is a canonical example of <em>emergent order</em>: global coherence arising from purely local rules. The implementation draws on Nicky Case's interactive explorable <a href="https://ncase.me/fireflies/" target="_blank">"Fireflies"</a>, and the underlying mathematics are beautifully described in Steven Strogatz's <a href="https://www.stevenstrogatz.com/books/sync-the-emerging-science-of-spontaneous-order" target="_blank"><i>Sync: How Order Emerges from Chaos in the Universe, Nature, and Daily Life</i></a>.`;
 
 export const code = `import { Agent, Environment, CanvasRenderer, Vector, KDTree, utils } from "flocc";
 

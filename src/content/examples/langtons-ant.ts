@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Langton\'s Ant',
-  description: 'Lorem ipsum',
-  topics: ["Artificial Life"],
+  description: 'A simple cellular automaton that produces chaos, then unexpectedly builds an infinite highway.',
+  topics: ["Artificial Life", "Information Theory"],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `<a href="https://mathworld.wolfram.com/LangtonsAnt.html" target="_blank">Langton's Ant</a> (designed by artificial life researcher <a href="https://en.wikipedia.org/wiki/Christopher_Langton" target="_blank">Christopher Langton</a>) is a cellular automaton with a single agent (the 'ant') moving across a two-dimensional grid. When the ant moves one step forward, it changes the color of the cell it occupies (from black to white and vice-versa). It also rotates clockwise or counter-clockwise depending on if it is on a black or white cell.
+export const content = `<a href="https://mathworld.wolfram.com/LangtonsAnt.html" target="_blank">Langton's Ant</a>, invented by artificial life pioneer <a href="https://en.wikipedia.org/wiki/Christopher_Langton" target="_blank">Christopher Langton</a> in 1986, is a two-dimensional cellular automaton with strikingly simple rules: a single "ant" moves across a grid, flipping the color of each cell it visits (black to white, white to black) and turning right on white cells, left on black cells.
 
-Although at the beginning of the simulation the ant appears to traverse a chaotic path, leaving behind random black and white cells in its wake, at about 10,000 steps in, it discovers a pattern, and begins tracing a wide path toward the southeast. On an infinite grid, it would continue in this direction forever, but on a toroidal grid (as shown here), it eventually collides with cells it previously traced, and returns to chaos.
+Despite this minimalism, the ant's behavior is surprisingly complex. For roughly the first 10,000 steps, the ant wanders chaotically, leaving behind an apparently random pattern of cells. Then, abruptly and without any change in rules, it begins constructing an unbounded diagonal "highway"—a repeating pattern that extends infinitely on an unbounded grid. This emergent order from chaos has never been fully explained mathematically; it remains an open problem whether the highway always appears. On a toroidal (wrap-around) grid as shown here, the highway eventually collides with its own history, returning the system to chaos.
 `;
 
 export const code = `import { Environment, CanvasRenderer, Vector, Terrain } from "flocc";

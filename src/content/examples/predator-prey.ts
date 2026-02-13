@@ -1,11 +1,13 @@
 export const meta = {
   title: 'Predator-Prey',
-  description: 'Lorem ipsum',
+  description: 'Lotka-Volterra dynamics in an agent-based model of wolves, sheep, and grass.',
   topics: ["Ecology"],
   tags: ["CanvasRenderer","LineChartRenderer"],
 };
 
-export const content = `In the Predator-Prey model, there are two agent types: Sheep and wolves. Sheep eat grass, and their population is limited by both their food source — above a certain carrying capacity there aren't enough resources to go around — and by the wolves who prey on nearby sheep. The nonlinear dynamics of this model are extremely sensitive to the starting conditions and parameters of reproductive and metabolic rates.`;
+export const content = `The Predator-Prey model is an agent-based implementation of <a href="https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations" target="_blank">Lotka-Volterra dynamics</a>, the classic system of differential equations describing oscillating predator and prey populations. Here, sheep (prey) graze on grass and reproduce when well-fed; wolves (predators) hunt sheep and reproduce when successful. Both species die if they fail to find food. The spatial environment adds ecological realism absent from the original equations.
+
+The resulting population curves exhibit the characteristic boom-and-bust cycles: sheep multiply when wolves are scarce, wolves thrive on abundant prey, overpredate, and crash, allowing sheep to recover. However, unlike the deterministic Lotka-Volterra system, this agent-based model is stochastic and spatially explicit—small parameter changes can tip the ecosystem toward extinction of one or both species. This sensitivity to initial conditions and parameters makes the model a useful demonstration of <a href="https://en.wikipedia.org/wiki/Ecological_stability" target="_blank">ecological stability</a> and the fragility of predator-prey equilibria.`;
 
 export const markup = `
   <div id="container"></div>

@@ -1,11 +1,13 @@
 export const meta = {
   title: 'Traffic',
-  description: 'Lorem ipsum',
-  topics: [],
+  description: 'A car-following model demonstrating how phantom traffic jams emerge from local braking.',
+  topics: ["Physics", "Social Science"],
   tags: ["CanvasRenderer"],
 };
 
-export const content = `If you've ever been on a freeway at rush hour, you know the stop-and-start nature of heavy traffic. In this model, an agent with an empty 'road' in front of it will attempt to accelerate until it gets close to another agent, at which point it decelerates (i.e. slamming on the brakes). Watch how this behavior sends 'waves' backwards to the agents behind it, causing 'traffic jams.' Under the right conditions, agents are able to separate such that traffic becomes smooth, but other environments are plagued by disruptive, halting motion.
+export const content = `This model illustrates a counterintuitive phenomenon familiar to anyone who has experienced rush-hour traffic: jams that appear to arise from nothing. Based on <a href="https://en.wikipedia.org/wiki/Traffic_flow#Car-following_models" target="_blank">car-following models</a> in traffic flow theory, each agent (car) accelerates when the road ahead is clear and brakes when approaching another vehicle. These simple local rules produce emergent <a href="https://en.wikipedia.org/wiki/Traffic_wave" target="_blank">traffic waves</a>—backward-propagating pulses of congestion.
+
+When one agent brakes, the agent behind must brake harder (due to reaction time), and so on down the line—a cascade that amplifies small perturbations into stop-and-go waves. The phenomenon is a striking example of how global patterns can emerge without any global cause: no accident, no bottleneck, just the aggregate effect of many drivers following simple rules. Under certain density and parameter regimes, the system reaches a smooth flow; under others, it remains locked in perpetual oscillation.
 `;
 
 export const markup = `

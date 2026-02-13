@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Game of Life',
-  description: 'Lorem ipsum',
-  topics: [],
+  description: 'Conway\'s cellular automaton demonstrating how complex patterns emerge from simple rules of birth, survival, and death.',
+  topics: ['Information Theory'],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `The Game of Life shows how remarkable complexity and emergent patterns can result from simple rules.
+export const content = `The Game of Life, devised by mathematician <a href="https://en.wikipedia.org/wiki/John_Horton_Conway" target="_blank">John Horton Conway</a> in 1970, is a cellular automaton—a grid of cells that evolve according to local rules. Despite having no players and requiring no input after its initial configuration, the Game of Life demonstrates how remarkable complexity can emerge from simple deterministic rules, making it a foundational example in the study of <a href="https://en.wikipedia.org/wiki/Emergence" target="_blank">emergence</a> and self-organization.
 
-From one tick of the game to the next, a live cell with fewer than two or more than three live neighbors dies. A live cell with two or three neighbors lives on, and a dead cell with exactly three live neighbors becomes a live cell.`;
+The rules are straightforward: each cell is either alive or dead, and its fate depends on the number of living neighbors in the eight surrounding cells. A living cell with fewer than two or more than three living neighbors dies (from underpopulation or overcrowding, respectively). A living cell with two or three neighbors survives. A dead cell with exactly three living neighbors becomes alive. These minimal rules give rise to an astonishing variety of stable structures, oscillators, and self-replicating patterns—including "gliders" that traverse the grid and "guns" that emit them indefinitely.`;
 
 export const code = `import { Environment, CanvasRenderer, Terrain } from "flocc";
 

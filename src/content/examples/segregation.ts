@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Segregation',
-  description: 'Lorem ipsum',
+  description: 'Schelling\'s model showing how mild individual preferences can produce stark collective segregation.',
   topics: ["Social Science"],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `The Schelling Segregation model (1971) demonstrates how group-level patterns can emerge that are disconnected from the intentions of individuals. In this model, agents are represented by individual red or blue pixels on a <code>Terrain</code>. An agent belonging to each group wants to be surrounded by more of its own type than the other, and will move to an empty cell in the environment if it is in the minority.
+export const content = `The Schelling Segregation model, introduced by economist <a href="https://www.jstor.org/stable/1823701" target="_blank">Thomas Schelling in 1971</a>, demonstrates how group-level patterns can emerge that are strikingly disconnected from individual intentions. Agents of two types (represented here as red and blue pixels) are distributed across a grid. Each agent has a simple preference: it wants at least some minimum fraction of its neighbors to be of the same type. If this threshold is not met, the agent relocates to an empty cell.
 
-These agents do not exhibit aversion to other types of agents per se, and only want to find a position in a non-minority group, but the resulting movements deterministically result in a segregated environment — an illustration of how systems-level effects (i.e. systemic bias) can arise unintuitively from lower-level behavior.
+Crucially, agents need not be biased against the other type—they may be perfectly content as a minority, so long as they are not <em>too</em> outnumbered. Yet even these mild individual preferences, when aggregated across many agents, produce stark collective segregation. The model has become a canonical example in complexity science of how micro-level rules can generate macro-level outcomes that no individual intended or desired, illustrating mechanisms that may underlie systemic bias in housing, schools, and social networks.
 `;
 
 export const code = `import { Environment, Terrain, CanvasRenderer, Colors, utils } from "flocc";

@@ -1,6 +1,6 @@
 export const meta = {
   title: 'Mandelbrot Set Explorer',
-  description: 'Lorem ipsum',
+  description: 'An interactive visualization of the Mandelbrot set\'s infinite fractal complexity.',
   topics: ["Mathematics"],
   tags: ["CanvasRenderer","Terrain"],
 };
@@ -56,9 +56,9 @@ export const markup = `<div id="container"></div>
     <button id="minus">&ndash;</button>
   </div>`;
 
-export const content = `This model visualizes the <a href="https://en.wikipedia.org/wiki/Mandelbrot_set" target="_blank">Mandelbrot set</a>, a mathematical construct. The set consists of a relatively simple formula that results in complex fractal patterns when visualized with a <code>Terrain</code>. Each coordinate represents a complex number, with the x-value corresponding to the real component and y the imaginary component.
+export const content = `The <a href="https://en.wikipedia.org/wiki/Mandelbrot_set" target="_blank">Mandelbrot set</a>, named after mathematician <a href="https://en.wikipedia.org/wiki/Benoit_Mandelbrot" target="_blank">Benoît Mandelbrot</a>, is one of the most famous objects in mathematics. It is defined by a deceptively simple iteration: for each point <i>c</i> in the complex plane, repeatedly compute <i>z → z² + c</i> starting from <i>z = 0</i>. Points where this sequence remains bounded belong to the set (colored black); points where it escapes to infinity are colored by how quickly they escape.
 
-Use the buttons and drag the canvas to explore how the Mandelbrot set exhibits self-similarity (fractals) at different scales and at different boundary areas.
+The result is an infinitely intricate <a href="https://en.wikipedia.org/wiki/Fractal" target="_blank">fractal</a> boundary—no matter how deeply you zoom, new detail continues to emerge, often echoing the overall shape at finer scales (self-similarity). This visualization allows interactive exploration: drag to pan, zoom to discover the endless complexity at the boundary between bounded and unbounded behavior. The Mandelbrot set has become an icon of how simple rules can generate structures of unbounded complexity.
 `;
 
 export const code = `import {

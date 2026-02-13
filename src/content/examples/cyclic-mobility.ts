@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Cyclic Mobility',
-  description: 'Lorem ipsum',
-  topics: ["Complex Systems"],
+  description: 'Rock-paper-scissors dynamics in space, producing spiraling patterns from cyclic competition.',
+  topics: ["Complex Systems", "Ecology"],
   tags: ["CanvasRenderer","Flocc UI","Terrain"],
 };
 
-export const content = `This implementation of <a href="https://www.complexity-explorables.org/explorables/cycledelic/" target="_blank">Dirk Brockmann's “Cycledelic” model</a> simulates three 'species' interacting in space. When A encounters B, B diminishes and A moves into its territory. In turn, B defeats C, and C defeats A. One way of conceptualizing this model is of simultaneous games of rock-paper-scissors playing out in two-dimensional space. The abstractly cyclic rule generates physical cycles (spirals and eddies) when visualized on a Terrain.
+export const content = `This implementation of <a href="https://www.complexity-explorables.org/explorables/cycledelic/" target="_blank">Dirk Brockmann's "Cycledelic" model</a> simulates three species locked in cyclic competition: A defeats B, B defeats C, and C defeats A—the familiar logic of rock-paper-scissors. Unlike the discrete game, however, here the competition unfolds continuously across a two-dimensional terrain, with each species diffusing through space and displacing its prey.
 
-By adjusting the parameters for predation (how aggressively a species moves into another's space), competition (how difficult it is for a species to defeat another), and diffusion (absent of competition, how much species move in space), a variety of complex patterns will emerge.
+The cyclic dominance relationship produces striking emergent patterns: rotating spirals, traveling waves, and turbulent eddies. These structures arise from the tension between local competition (which creates expanding fronts) and spatial diffusion (which spreads species outward). Similar dynamics appear in bacterial colony growth and certain chemical reaction-diffusion systems. By adjusting predation, competition, and diffusion parameters, the system transitions between qualitatively different regimes—from stable coexistence to chaotic, ever-shifting mosaics.
 `;
 
 export const code = `import { Environment, CanvasRenderer, utils, Terrain } from "flocc";

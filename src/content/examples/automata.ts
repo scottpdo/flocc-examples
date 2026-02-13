@@ -1,13 +1,13 @@
 export const meta = {
   title: 'Elementary Cellular Automata',
-  description: 'Lorem ipsum',
+  description: 'Wolfram\'s one-dimensional cellular automata, where simple local rules generate patterns ranging from order to chaos.',
   topics: ["Information Theory"],
   tags: ["CanvasRenderer","Terrain"],
 };
 
-export const content = `Cellular automata (CA) are discrete models that usually take place on a grid (or lattice), with cells that take action based on their own state (for example, “on” or “off”) and the state of nearby cells. The Game of Life is an example of a cellular automata. Elementary cellular automata are a special type of CA that take place on a 1-dimensional grid (a single row).
+export const content = `Elementary cellular automata (ECA), extensively studied by <a href="https://www.wolframscience.com/nks/" target="_blank">Stephen Wolfram</a> in the 1980s, are the simplest class of cellular automata—discrete computational systems where cells update their state based on local neighborhood rules. Unlike two-dimensional automata such as the Game of Life, ECA operate on a single row of binary cells (on or off), with each cell's next state determined by its current state and that of its two immediate neighbors. This yields exactly 256 possible rules, numbered 0–255 using Wolfram's naming convention.
 
-Reading from top to bottom, each visualized row represents the state of the cells over time. Each rule from 0 to 255 represents the action a cell will take given its own state and that of its immediate neighbors. For example, in rule 0, every cell will turn off no matter what. In Rule 184, the “traffic rule,” the number of cells in each state always remains the same, but sends 'waves' throughout the lattice. With random starting states, rules 30, 90, 110 exhibit unpredictable, chaotic behavior. Try other rules below!
+In this visualization, time flows downward: each horizontal row represents the automaton's state at one moment, with subsequent rows showing its evolution. Despite their simplicity, ECA exhibit a surprising range of behaviors. Rule 0 produces uniform death; Rule 184 (the "traffic rule") conserves the number of active cells while propagating waves through the lattice. Most remarkably, Rules 30, 90, and 110 generate complex, apparently chaotic patterns from minimal initial conditions—Rule 110 has even been proven <a href="https://www.complex-systems.com/abstracts/v15_i01_a01/" target="_blank">Turing complete</a>, capable in principle of universal computation.
 `;
 
 export const code = `import { Environment, Terrain, CanvasRenderer, utils } from "flocc";

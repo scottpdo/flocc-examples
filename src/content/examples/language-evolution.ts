@@ -1,6 +1,6 @@
 export const meta = {
   title: 'Language Evolution',
-  description: 'Lorem ipsum',
+  description: 'Agents bootstrapping a shared vocabulary through grounded communication games.',
   topics: ["Linguistics","Social Science"],
   tags: ["LineChartRenderer"],
 };
@@ -80,9 +80,9 @@ td {
 }
 `;
 
-export const content = `Starting with no common language, a group of agents learn to communicate with each other through a guessing game. Each turn, an agent points to a unique object in a group of three objects. A second agent guesses the 'meaning' behind the first agent's act of pointing — a distinguishing feature, like “blue,” “circle,” or “1st” — and produces a word for that meaning. If it matches the word the first agent had in mind, the association between the word and the meaning are strengthened (however, in ambiguous contexts, it's possible for the second agent to match the first agent's word but for a different meaning). At the start, since the agents have no vocabulary, they generate new words and use them randomly, but over time, a shared language emerges that allows them to successfully communicate about the features of objects.
+export const content = `This model, based on Luc Steels and Frédéric Kramer's <a href="https://ai.vub.ac.be/sites/default/files/steels-ground1999.pdf" target="_blank"><i>Bootstrapping Grounded Word Semantics</i></a> (1999), shows how a shared language can emerge from scratch through <a href="https://en.wikipedia.org/wiki/Language_game_(philosophy)" target="_blank">language games</a>. Agents begin with no common vocabulary. Each turn, a "speaker" indicates a unique object from a set of three; a "listener" guesses the intended <em>meaning</em> (a distinguishing feature like "blue" or "circle") and offers a word for it. If the word matches the speaker's intention, the word-meaning association is reinforced in both agents' lexicons.
 
-Despite the simplicity of this model, a number of complex linguistic phenomena emerge, including synonyms (multiple words with the same meaning), differing usage/'slang' among sub-populations, and context-specificity (ex. a word that is associated with “blue square,” but not squares in general). This model is based on Luc Steels and Frédéric Kramer's <a href="https://ai.vub.ac.be/sites/default/files/steels-ground1999.pdf" target="_blank"><i>Bootstrapping Grounded Word Semantics</i></a> (1999).
+Starting from random word generation, agents gradually converge on a shared vocabulary that enables successful communication. Despite the model's simplicity, it produces emergent linguistic phenomena observed in natural languages: <em>synonymy</em> (multiple words for the same meaning), <em>dialectal variation</em> (subgroups developing their own usage), and <em>context-sensitivity</em> (words acquiring narrow or context-dependent meanings). The model contributes to the field of <a href="https://en.wikipedia.org/wiki/Evolutionary_linguistics" target="_blank">evolutionary linguistics</a>, illustrating how cultural conventions can arise without central design.
 `;
 
 export const markup = `<div id="guessing"></div>

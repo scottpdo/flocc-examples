@@ -1,14 +1,13 @@
 export const meta = {
   title: 'Network Diffusion',
-  description: 'Lorem ipsum',
-  topics: [],
+  description: 'Diffusion dynamics on a small-world network, where quantities spread from high to low until equilibrium.',
+  topics: ["Network Science"],
   tags: ["Network"],
 };
 
-export const content = `This intentionally abstract simulation depicts the dynamics of a network tending toward the mean.
-Each agent is connected to its closest geographic neighbors, and possibly a few other random agents in the network, depending on the value of <code>REWIRING_PROBABILITY</code>. With each tick of the simulation, an agent that is larger than its neighbor will transfer some of its size to the neighbor, shrinking the agent and growing the neighbor. With enough time, the network reaches stasis.
+export const content = `This model demonstrates <a href="https://en.wikipedia.org/wiki/Diffusion" target="_blank">diffusion</a> on a network—the process by which a quantity (here represented abstractly as agent "size") spreads from areas of high concentration to low. Agents are connected in a <a href="https://en.wikipedia.org/wiki/Small-world_network" target="_blank">small-world network</a>: mostly local geographic neighbors, with a probability of random long-range connections controlled by <code>REWIRING_PROBABILITY</code>. Each tick, agents transfer a portion of their size to smaller neighbors.
 
-Try adjusting the parameters to see how it affects the network dynamics.`;
+Over time, the network tends toward equilibrium—the standard deviation of sizes decreases as the distribution converges to the mean. The small-world topology accelerates this convergence: long-range shortcuts allow diffusion to bridge distant clusters rapidly. This abstract model captures dynamics relevant to heat transfer, information spread, wealth redistribution, and other processes where local interactions drive global homogenization.`;
 
 export const code = `import { Agent, Environment, CanvasRenderer, utils, Network, LineChartRenderer } from "flocc";
 
