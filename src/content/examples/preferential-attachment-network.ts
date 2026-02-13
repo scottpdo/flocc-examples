@@ -86,7 +86,12 @@ const color = "rgba(0, 0, 0, 0.6)";
 
 function addToNetwork() {
   const sample = utils.sampler(DEGREE);
-  // add to network
+  // sample neighbors BEFORE creating agent (using existing network state)
+  const neighbors = sample(
+    network.agents,
+    network.agents.map((n) => network.neighbors(n).length)
+  );
+  // create and add to network first, so x/y can find the agent
   const agent = new Agent({
     size: agentSize,
     x,
@@ -94,15 +99,12 @@ function addToNetwork() {
     color,
     degree
   });
-  environment.addAgent(agent);
-  const neighbors = sample(
-    network.agents,
-    network.agents.map((n) => network.neighbors(n).length)
-  );
   network.addAgent(agent);
   neighbors.forEach((n) => {
     network.connect(agent, n);
   });
+  // add to environment last (triggers rendering)
+  environment.addAgent(agent);
 }
 
 function setup() {
@@ -114,16 +116,15 @@ function setup() {
       y,
       color
     });
-    environment.addAgent(agent);
-
-    if (i < DEGREE) {
-      network.addAgent(agent);
-    } else if (i === DEGREE) {
-      network.addAgent(agent);
+    // add to network first, so x/y can find the agent
+    network.addAgent(agent);
+    if (i === DEGREE) {
       network.agents.forEach((n) => {
-        network.connect(agent, n);
+        if (n !== agent) network.connect(agent, n);
       });
     }
+    // add to environment last (triggers rendering)
+    environment.addAgent(agent);
   }
 }
 
