@@ -5,7 +5,7 @@ export const meta = {
   tags: ["LineChartRenderer","Network"],
 };
 
-export const content = `This model, designed and presented at the <a href="https://cnww.co/" target="_blank">Complex Networks Winter Workshop</a> 2021 by Herzog, Johnson, Stone, Gao, and Donaldson, explores the interplay between contagion dynamics and adaptive behavior. A pathogen spreads through a network; infected agents may self-isolate (reducing transmission to zero), and if infections exceed a threshold, a global lockdown is imposed, increasing isolation probability for all agents—especially those who are infected or have infected neighbors.
+export const content = `This model, designed and presented at the Complex Networks Winter Workshop 2021 by Herzog, Johnson, Stone, Gao, and Donaldson, explores the interplay between contagion dynamics and adaptive behavior. A pathogen spreads through a network; infected agents may self-isolate (reducing transmission to zero), and if infections exceed a threshold, a global lockdown is imposed, increasing isolation probability for all agents—especially those who are infected or have infected neighbors.
 
 The resulting dynamics mirror patterns observed during the COVID-19 pandemic. Lockdowns suppress transmission, infections decline, restrictions lift, behavior normalizes, and a new wave begins. Without immunity (agents can be reinfected), the system exhibits persistent oscillations rather than convergence to herd immunity or extinction. The model illustrates how feedback between disease prevalence and human behavior can generate cyclical epidemic waves—a key insight for understanding real-world pandemic dynamics.
 `;
