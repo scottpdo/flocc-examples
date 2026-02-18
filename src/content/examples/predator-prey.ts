@@ -84,11 +84,14 @@ function addSheep() {
     tick: tickSheep
   });
   environment.increment("sheep");
-  environment.addAgent(sheep);
+  // rebalance: false — the environment rebalances the KDTree once after
+  // all agents have ticked; doing it on every add/remove is O(n log n) × n
+  environment.addAgent(sheep, false);
 }
 
 function removeSheep(agent) {
-  environment.removeAgent(agent);
+  // rebalance: false — same reason; see addSheep
+  environment.removeAgent(agent, false);
   environment.decrement("sheep");
 }
 
@@ -140,12 +143,14 @@ function tickWolf(agent) {
   move(agent);
   agent.decrement("energy");
   if (agent.get("energy") < 0) {
-    environment.removeAgent(agent);
+    environment.removeAgent(agent, false);
     environment.decrement("wolves");
     return;
   }
-  // tree contains all agents; filter to sheep only
-  const nearby = tree.agentsWithinDistance(agent, 6).filter(a => a.get("sheep"));
+  // tree contains all agents; filter to live sheep only.
+  // environment.removeAgent nulls agent.environment before touching the tree,
+  // so agents removed mid-tick (without a rebalance) are caught by the null check.
+  const nearby = tree.agentsWithinDistance(agent, 6).filter(a => a.get("sheep") && a.environment !== null);
   if (nearby.length === 0) return;
   removeSheep(utils.sample(nearby));
   agent.increment("energy", WOLF_GAIN_FROM_FOOD);
