@@ -17,7 +17,7 @@ export const markup = `
   </h2>
   <div id="population"></div>`
 
-export const code = `import { Agent, Environment, LineChartRenderer, CanvasRenderer, Terrain, Colors, utils } from "flocc";
+export const code = `import { Agent, Environment, KDTree, LineChartRenderer, CanvasRenderer, Terrain, Colors, utils } from "flocc";
 
 utils.seed(1);
 
@@ -30,7 +30,9 @@ const MAX_SHEEP = 6000;
 const width = 600;
 const height = 300;
 
-const sheepLocations = new Array(width * height);
+// Track sheep agents for KDTree construction and fast removal
+const sheepSet = new Set();
+let sheepTree = null;
 
 const environment = new Environment({ width, height });
 const renderer = new CanvasRenderer(environment, {
@@ -81,13 +83,15 @@ function addSheep() {
   });
   environment.increment("sheep");
   environment.addAgent(sheep);
-  sheepLocations[sheep.get("x") + sheep.get("y") * width] = sheep.id;
+  sheepSet.add(sheep);
 }
 
 function removeSheep(agent) {
   environment.removeAgent(agent);
   environment.decrement("sheep");
-  sheepLocations[agent.get("x") + agent.get("y") * width] = false;
+  sheepSet.delete(agent);
+  // Keep tree consistent mid-tick so subsequent wolves don't target this sheep
+  if (sheepTree) sheepTree.removeAgent(agent);
 }
 
 function addWolf() {
@@ -106,16 +110,8 @@ function addWolf() {
 }
 
 function move(agent) {
-  if (agent.get("sheep")) {
-    const { x, y } = agent.getData();
-    sheepLocations[x + y * width] = 0;
-  }
   agent.increment("x", utils.random(-3, 3));
   agent.increment("y", utils.random(-3, 3));
-  if (agent.get("sheep")) {
-    const { x, y } = agent.getData();
-    sheepLocations[x + y * width] = agent.id;
-  }
 }
 
 function tickSheep(agent) {
@@ -148,20 +144,12 @@ function tickWolf(agent) {
   if (agent.get("energy") < 0) {
     environment.removeAgent(agent);
     environment.decrement("wolves");
+    return;
   }
-  const here = [];
-  const r = 6;
-  for (let y = agent.get("y") - r; y < agent.get("y") + r; y++) {
-    for (let x = agent.get("x") - r; x < agent.get("x") + r; x++) {
-      const index =
-        (x < 0 ? x + width : x >= width ? x - width : x) +
-        (x < 0 ? y + height : y >= height ? y - height : y) * width;
-      const sheep = sheepLocations[index];
-      if (sheep) here.push(sheep);
-    }
-  }
-  if (here.length === 0) return;
-  removeSheep(environment.getAgentById(utils.sample(here)));
+  if (!sheepTree) return;
+  const nearby = sheepTree.agentsWithinDistance(agent, 6);
+  if (nearby.length === 0) return;
+  removeSheep(utils.sample(nearby));
   agent.increment("energy", WOLF_GAIN_FROM_FOOD);
   // reproduce
   if (utils.uniform() < WOLF_REPRODUCE) {
@@ -176,7 +164,13 @@ function setup() {
 }
 
 function run() {
+  // Rebuild KDTree from current sheep positions once per frame,
+  // before ticking agents, so wolves query accurate locations.
+  const sheepArray = Array.from(sheepSet);
+  sheepTree = sheepArray.length > 0 ? new KDTree(sheepArray) : null;
+
   environment.tick();
+
   if (environment.get("sheep") >= MAX_SHEEP) {
     window.alert("The sheep have inherited the earth!");
   } else if (environment.time < 3000) {
