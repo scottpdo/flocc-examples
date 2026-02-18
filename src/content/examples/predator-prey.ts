@@ -30,11 +30,13 @@ const MAX_SHEEP = 6000;
 const width = 600;
 const height = 300;
 
-// Track sheep agents for KDTree construction and fast removal
-const sheepSet = new Set();
-let sheepTree = null;
-
 const environment = new Environment({ width, height });
+
+// Spatial index for all agents — automatically rebalanced after each tick
+// and kept in sync as agents are added/removed via environment.use()
+const tree = new KDTree([]);
+environment.use(tree);
+
 const renderer = new CanvasRenderer(environment, {
   background: "green",
   width,
@@ -83,15 +85,11 @@ function addSheep() {
   });
   environment.increment("sheep");
   environment.addAgent(sheep);
-  sheepSet.add(sheep);
 }
 
 function removeSheep(agent) {
   environment.removeAgent(agent);
   environment.decrement("sheep");
-  sheepSet.delete(agent);
-  // Keep tree consistent mid-tick so subsequent wolves don't target this sheep
-  if (sheepTree) sheepTree.removeAgent(agent);
 }
 
 function addWolf() {
@@ -146,8 +144,8 @@ function tickWolf(agent) {
     environment.decrement("wolves");
     return;
   }
-  if (!sheepTree) return;
-  const nearby = sheepTree.agentsWithinDistance(agent, 6);
+  // tree contains all agents; filter to sheep only
+  const nearby = tree.agentsWithinDistance(agent, 6).filter(a => a.get("sheep"));
   if (nearby.length === 0) return;
   removeSheep(utils.sample(nearby));
   agent.increment("energy", WOLF_GAIN_FROM_FOOD);
@@ -164,11 +162,6 @@ function setup() {
 }
 
 function run() {
-  // Rebuild KDTree from current sheep positions once per frame,
-  // before ticking agents, so wolves query accurate locations.
-  const sheepArray = Array.from(sheepSet);
-  sheepTree = sheepArray.length > 0 ? new KDTree(sheepArray) : null;
-
   environment.tick();
 
   if (environment.get("sheep") >= MAX_SHEEP) {
