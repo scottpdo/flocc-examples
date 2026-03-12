@@ -50,7 +50,7 @@ function setup() {
   for (let i = 0; i < POPULATION; i++) {
     const agent = new Agent();
     agent.set("size", Math.max(utils.gaussian(7, 6), 1));
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
     network.addAgent(agent);
   }

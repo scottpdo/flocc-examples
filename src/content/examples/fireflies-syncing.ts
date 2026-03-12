@@ -73,7 +73,7 @@ function setup() {
       y: utils.random(0, height)
     });
     agent.get("velocity").normalize();
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
   }
 

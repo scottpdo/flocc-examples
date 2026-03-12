@@ -52,7 +52,7 @@ function addAgent() {
     size: scale / 2,
     color
   });
-  agent.addRule(tick);
+  agent.set("tick", tick);
   environment.addAgent(agent);
 }
 
@@ -106,7 +106,7 @@ function populate() {
     size: scale / 2,
     color
   });
-  agent.addRule(tick);
+  agent.set("tick", tick);
   environment.addAgent(agent);
   environment.set("radius", 0);
 }

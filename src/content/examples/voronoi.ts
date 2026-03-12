@@ -41,7 +41,7 @@ function setup() {
       dir: Math.random() * 2 * Math.PI,
       size: Math.abs(utils.gaussian(2, 1)) + 0.75
     });
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
   }
 }

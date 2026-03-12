@@ -137,7 +137,7 @@ function setup() {
       size: 2,
       type: "voter"
     });
-    voter.addRule(tickVoter);
+    voter.set("tick", tickVoter);
     environment.addAgent(voter);
     network.addAgent(voter);
   }

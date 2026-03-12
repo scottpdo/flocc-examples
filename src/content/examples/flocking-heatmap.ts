@@ -64,7 +64,7 @@ function setup() {
     agent.set("vx", Math.cos(angle));
     agent.set("vy", Math.sin(angle));
 
-    agent.addRule(tick);
+    agent.set("tick", tick);
 
     environment.addAgent(agent);
   }

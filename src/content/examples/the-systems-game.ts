@@ -136,7 +136,7 @@ function setup() {
       dir: 2 * Math.PI * Math.random(),
       vel: 1
     });
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
   }
   const agents = environment.getAgents();

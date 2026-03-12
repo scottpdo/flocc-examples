@@ -131,7 +131,7 @@ function setup() {
 
   for (let i = 0; i < FLOCK_SIZE; i++) {
     const agent = new Agent();
-    agent.addRule(tick);
+    agent.set("tick", tick);
     const position = new THREE.Vector3(
       utils.random(-100, 100),
       utils.random(-100, 100),

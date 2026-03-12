@@ -251,7 +251,7 @@ function setup() {
       color: \`\${colors[i]} (\${i})\`,
       wealth: utils.random(300, 500)
     });
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
   }
 

@@ -82,7 +82,7 @@ function setup() {
     const agent = new Agent({
       opinion: utils.sample([-1, 0, 1], [1, 1, 4])
     });
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
   }
 }

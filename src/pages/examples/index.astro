@@ -1,4 +1,5 @@
 ---
+import { VERSION } from 'flocc';
 import Layout from '../../layouts/Layout.astro';
 
 // Dynamically import all example modules
@@ -83,7 +84,7 @@ const allTags = [...new Set(examples.flatMap(e => e.tags))].sort();
 
     <div class="status-bar">
       <div class="status-bar-item" id="status-text">{examples.length} object(s)</div>
-      <div class="status-bar-item" style="flex: 0; min-width: 150px;">Flocc Examples v0.6</div>
+      <div class="status-bar-item" style="flex: 0; min-width: 150px;">Flocc v{VERSION}</div>
     </div>
   </div>
 </Layout>

@@ -286,7 +286,7 @@ function setup() {
     const agent = new Agent({
       lexicon: new Lexicon()
     });
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
   }
 }

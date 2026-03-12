@@ -85,7 +85,7 @@ function setup() {
   c.set({ x: 250, y: 50, correct: 0 });
   [a, b, c].forEach(agt => {
     agt.set("decisionTable", decisionTable());
-    agt.addRule(tick);
+    agt.set("tick", tick);
     environment.addAgent(agt);
   });
 

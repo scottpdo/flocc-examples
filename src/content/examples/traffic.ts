@@ -58,7 +58,7 @@ function setup() {
       shape: "arrow"
     });
 
-    agent.addRule(tick);
+    agent.set("tick", tick);
 
     environment.addAgent(agent);
   }

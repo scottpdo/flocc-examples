@@ -136,7 +136,7 @@ function setup() {
         y: utils.random(25, height - 25)
       })
     );
-    agent.addRule(tick);
+    agent.set("tick", tick);
     environment.addAgent(agent);
     network.addAgent(agent);
   }

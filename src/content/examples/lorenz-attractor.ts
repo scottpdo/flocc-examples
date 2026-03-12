@@ -87,7 +87,7 @@ function createAgent(color) {
   scene.add(traceLine);
 
   const agent = new Agent();
-  agent.addRule(tick);
+  agent.set("tick", tick);
   const agentGeo = new THREE.SphereGeometry(0.5);
   const agentMat = new THREE.MeshBasicMaterial({ color });
   const agentMesh = new THREE.Mesh(agentGeo, agentMat);
@@ -116,7 +116,7 @@ function tick(agent) {
   const xn = 10 * (y - x);
   const yn = x * (28 - z) - y;
   const zn = x * y - (8 / 3) * z;
-  agent.enqueue(() => {
+  agent.set("queue", () => {
     const t = 0.01;
     agent.get("position").set(x + t * xn, y + t * yn, z + t * zn);
   });
